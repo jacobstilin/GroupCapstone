@@ -1,10 +1,12 @@
-﻿@model ShapeShift.Models.Organization
+﻿@using Microsoft.AspNet.Identity
+@model ShapeShift.Models.Organization
 
 @{
     ViewBag.Title = "Index";
 
 
-    <li>@Html.ActionLink("Add Employee", "Create", "Employee")</li>
+
+    <li>@Html.ActionLink("Add Employee", "RegisterEmployee", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
     <li>@Html.ActionLink("Add Manager", "Create", "Manager")</li>
     <li>@Html.ActionLink("Add Location", "Create", "Location")</li>
 }

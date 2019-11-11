@@ -15,6 +15,7 @@ namespace ShapeShift.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -164,11 +165,16 @@ namespace ShapeShift.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    Organization organization = new Organization();
+                    db.Organizations.Add(organization);
+                    db.SaveChanges();
+                    AppUser appUser = new AppUser();
+                    appUser.OrganizationId = organization.OrganizationId;
+                    appUser.ApplicationId = User.Identity.GetUserId();
+                    // fix this later!
+                    db.AppUsers.Add(appUser);
+                    
+                    db.SaveChanges();
 
                     var id = user.Id;
 
@@ -186,6 +192,81 @@ namespace ShapeShift.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+
+
+
+
+
+        [AllowAnonymous]
+        public ActionResult RegisterEmployee()
+        {
+            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner"))
+                                            .ToList(), "Name", "Name");
+            ViewBag.displayMenu = "Owner";
+                return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
+        {
+            
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    
+                    AppUser newUser = new AppUser();
+                    var ownerId = User.Identity.GetUserId();
+                    AppUser owner = db.AppUsers.FirstOrDefault(a => a.ApplicationId == ownerId);
+
+                    newUser.firstName = "";
+                    newUser.middleName = "";
+                    newUser.lastName = "";
+                    newUser.ApplicationId = user.Id;
+                    newUser.OrganizationId = 1;
+                    
+
+                    db.AppUsers.Add(newUser);
+                    db.SaveChanges();
+
+                    
+
+                    // GOOD MORNING fix this!
+
+
+                    return RedirectToAction("Edit", "Employee", new { id = newUser.UserId });
+
+                    // Organization create can only be reached after registration OR upon login if creation has not occured
+                }
+                ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner"))
+                                            .ToList(), "Name", "Name");
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+
+
+
+
+
+
+
+
 
         //
         // GET: /Account/ConfirmEmail

@@ -32,13 +32,8 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Employee/Create
-        public ActionResult Create(string id)
+        public ActionResult Create()
         {
-            AppUser newUser = new AppUser();
-            newUser.lastName = id;
-            newUser.firstName = "tempUser";
-            db.AppUsers.Add(newUser);
-            db.SaveChanges();
             return View();
         }
 
@@ -48,11 +43,9 @@ namespace ShapeShift.Controllers
         {
             try
             {
-
-
-                AppUser tempUser = db.AppUsers.FirstOrDefault(a => a.firstName == "tempUser");
-                string tempId = tempUser.lastName;
-                db.AppUsers.Remove(tempUser);
+                
+                    
+                    
                         
                         AppUser newUser = new AppUser();
                         var ownerId = User.Identity.GetUserId();
@@ -100,11 +93,15 @@ namespace ShapeShift.Controllers
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, AppUser appUser)
         {
             try
             {
-                // TODO: Add update logic here
+                AppUser newUser = db.AppUsers.FirstOrDefault(a => a.UserId == id);
+                newUser.firstName = appUser.firstName;
+                newUser.middleName = appUser.middleName;
+                newUser.lastName = appUser.lastName;
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }

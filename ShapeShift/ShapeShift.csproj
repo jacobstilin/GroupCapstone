@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201911112128000_mig4.Designer.cs">
       <DependentUpon>201911112128000_mig4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911112246564_mig5.cs" />
+    <Compile Include="Migrations\201911112246564_mig5.Designer.cs">
+      <DependentUpon>201911112246564_mig5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -272,6 +276,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Account\RegisterEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911112128000_mig4.resx">
       <DependentUpon>201911112128000_mig4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911112246564_mig5.resx">
+      <DependentUpon>201911112246564_mig5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
