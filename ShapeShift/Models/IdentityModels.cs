@@ -20,6 +20,18 @@ namespace ShapeShift.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Organization> Organizations { get; set; }
+
+        public DbSet<Position> Positions { get; set; }
+
+        public DbSet<Location> Locations { get; set; }
+
+        public DbSet<Shift> Shifts { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<AppUser> AppUsers { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -29,5 +41,13 @@ namespace ShapeShift.Models
         {
             return new ApplicationDbContext();
         }
+
+        
+
+        
+
+        
+
+        
     }
 }
