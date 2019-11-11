@@ -136,9 +136,16 @@ namespace ShapeShift.Controllers
 
         //
         // GET: /Account/Register
+
+            //if this doesn't work, improve
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                ViewBag.displayMenu = "Owner";
+                return View();
+            }
             return View();
         }
 
@@ -156,13 +163,19 @@ namespace ShapeShift.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    var id = user.Id;
+
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        return RedirectToAction("Create", "Employee", new { id = id } );
+                    }
                     return RedirectToAction("Index", "Organization");
 
                     // Organization create can only be reached after registration OR upon login if creation has not occured

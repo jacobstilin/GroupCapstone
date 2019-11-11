@@ -12,43 +12,12 @@ namespace ShapeShift.Controllers
 {
     public class EmployeeController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public EmployeeController()
-        {
+        
 
-        }
-        public EmployeeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+       
 
         // GET: Employee
         public ActionResult Index()
@@ -63,32 +32,36 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Employee/Create
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
+            AppUser newUser = new AppUser();
+            newUser.lastName = id;
+            newUser.firstName = "tempUser";
+            db.AppUsers.Add(newUser);
+            db.SaveChanges();
             return View();
         }
 
         // POST: Employee/Create
         [HttpPost]
-        public async Task<ActionResult> Create(AppUser appUser)
+        public ActionResult Create(AppUser appUser)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var user = new ApplicationUser { UserName = appUser.Email, Email = appUser.Email };
-                    var result = await UserManager.CreateAsync(user, appUser.Password);
-                    
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+
+                AppUser tempUser = db.AppUsers.FirstOrDefault(a => a.firstName == "tempUser");
+                string tempId = tempUser.lastName;
+                db.AppUsers.Remove(tempUser);
+                        
                         AppUser newUser = new AppUser();
                         var ownerId = User.Identity.GetUserId();
                         AppUser owner = db.AppUsers.FirstOrDefault(a => a.ApplicationId == ownerId);
                         newUser.firstName = appUser.firstName;
                         newUser.middleName = appUser.middleName;
                         newUser.lastName = appUser.lastName;
-                        newUser.ApplicationId = user.Id; // if it doesn't work, improve
+                        // newUser.ApplicationId = user.Id; 
+                // if it doesn't work, improve
                         newUser.OrganizationId = owner.OrganizationId;
                         // organization ID of person logged in is assigned to new employee
 
@@ -100,11 +73,10 @@ namespace ShapeShift.Controllers
                         return RedirectToAction("Index", "Organization");
 
                         // Organization create can only be reached after registration OR upon login if creation has not occured
-                    }
-                    AddErrors(result);
-                }
+                    
+                    
 
-                return RedirectToAction("Index");
+                
             }
             catch
             {
