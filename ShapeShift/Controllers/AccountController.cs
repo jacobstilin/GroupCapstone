@@ -166,7 +166,6 @@ namespace ShapeShift.Controllers
                     return RedirectToAction("Create", "OrganizationController");
 
                     // Organization create can only be reached after registration OR upon login if creation has not occured
-
                 }
                 AddErrors(result);
             }

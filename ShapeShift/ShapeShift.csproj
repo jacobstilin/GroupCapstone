@@ -170,9 +170,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -262,7 +264,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Address\" />
     <Folder Include="Views\AppUsers\" />
+    <Folder Include="Views\Employee\" />
     <Folder Include="Views\Location\" />
+    <Folder Include="Views\Manager\" />
     <Folder Include="Views\Position\" />
     <Folder Include="Views\Shift\" />
   </ItemGroup>
