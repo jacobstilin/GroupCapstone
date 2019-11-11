@@ -16,6 +16,10 @@ namespace ShapeShift.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public EmployeeController()
+        {
+
+        }
         public EmployeeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -93,7 +97,7 @@ namespace ShapeShift.Controllers
                         db.AppUsers.Add(newUser);
                         db.SaveChanges();
 
-                        return RedirectToAction("Create", "OrganizationController");
+                        return RedirectToAction("Index", "Organization");
 
                         // Organization create can only be reached after registration OR upon login if creation has not occured
                     }

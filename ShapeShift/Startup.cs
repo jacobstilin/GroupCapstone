@@ -31,7 +31,7 @@ namespace ShapeShift
                 // Owner info must be put here or something when account granted to owner
 
                 var user = new ApplicationUser();
-                user.UserName = "jstilin";
+                user.UserName = "stilinj@gmail.com";
                 user.Email = "stilinj@gmail.com";
 
                 string userPWD = "qwewqweQ1!";
