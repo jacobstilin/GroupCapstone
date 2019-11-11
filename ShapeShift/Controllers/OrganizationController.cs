@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using ShapeShift.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ namespace ShapeShift.Controllers
 {
     public class OrganizationController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Organization
         public ActionResult Index()
         {
@@ -30,11 +33,16 @@ namespace ShapeShift.Controllers
 
         // POST: Organization/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create([Bind(Include = "OrganizationId,Organization Name")] Organization organization)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Organizations.Add(organization);
+                AppUser appUser = new AppUser();
+                appUser.ApplicationId = User.Identity.GetUserId();
+                appUser.OrganizationId = organization.OrganizationId;
+                db.AppUsers.Add(appUser);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -47,6 +55,8 @@ namespace ShapeShift.Controllers
         // GET: Organization/Edit/5
         public ActionResult Edit(int id)
         {
+
+
             return View();
         }
 

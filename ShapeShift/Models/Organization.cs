@@ -11,6 +11,10 @@ namespace ShapeShift.Models
         [Key]
         public int OrganizationId { get; set; }
 
+        [Display(Name = "Organization Name")]
+        public string organizationName { get; set; }
+
+
 
     }
 }

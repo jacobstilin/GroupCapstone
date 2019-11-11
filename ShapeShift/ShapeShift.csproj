@@ -256,13 +256,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Address\" />
     <Folder Include="Views\AppUsers\" />
     <Folder Include="Views\Location\" />
-    <Folder Include="Views\Organization\" />
     <Folder Include="Views\Position\" />
     <Folder Include="Views\Shift\" />
   </ItemGroup>
