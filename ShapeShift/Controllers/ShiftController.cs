@@ -12,6 +12,15 @@ namespace ShapeShift.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+        public AppUser GetLoggedInUser()
+        {
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == User.Identity.GetUserId());
+            return (appUser);
+        }
+        // Returns the AppUser that is currently logged in
+
+
         // GET: Shift
         public ActionResult Index()
         {
@@ -60,6 +69,20 @@ namespace ShapeShift.Controllers
                 return View();
             }
         }
+
+        
+        // Method gets a list of all shifts for the logged in user
+        public ActionResult GetEmployeeSchedule()
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+
+            return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
+            
+        }
+        // Figure out how to use DateTime.Today 
+
+
 
         // GET: Shift/Edit/5
         public ActionResult Edit(int id)

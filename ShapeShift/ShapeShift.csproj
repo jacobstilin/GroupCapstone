@@ -283,6 +283,7 @@
     <Content Include="Views\Employee\Create.cshtml" />
     <Content Include="Views\Account\RegisterEmployee.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Shift\GetEmployeeSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -292,7 +293,6 @@
     <Folder Include="Views\Manager\" />
     <Folder Include="Views\Position\" />
     <Folder Include="Views\Role\" />
-    <Folder Include="Views\Shift\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
