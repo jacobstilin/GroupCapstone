@@ -164,6 +164,7 @@ namespace ShapeShift.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await this.UserManager.AddToRoleAsync(user.Id, "Owner");
 
                     Organization organization = new Organization();
                     db.Organizations.Add(organization);
