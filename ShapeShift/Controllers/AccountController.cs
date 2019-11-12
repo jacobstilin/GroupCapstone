@@ -242,6 +242,12 @@ namespace ShapeShift.Controllers
 
                     Availability[] availabilityArray = new Availability[7];
                     availabilityArray[0] = new Availability();
+                    availabilityArray[1] = new Availability();
+                    availabilityArray[2] = new Availability();
+                    availabilityArray[3] = new Availability();
+                    availabilityArray[4] = new Availability();
+                    availabilityArray[5] = new Availability();
+                    availabilityArray[6] = new Availability();
                     availabilityArray[0].weekday = "sunday";
                     availabilityArray[1].weekday = "monday";
                     availabilityArray[2].weekday = "tuesday";
