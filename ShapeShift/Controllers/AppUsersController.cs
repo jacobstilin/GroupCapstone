@@ -17,6 +17,8 @@ namespace ShapeShift.Controllers
             return View();
         }
 
+
+        
         // GET: AppUsers/Details/5
         public ActionResult Details(int id)
         {

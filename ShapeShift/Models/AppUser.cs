@@ -21,7 +21,8 @@ namespace ShapeShift.Models
         [Display(Name = "Last Name")]
         public string lastName { get; set; }
 
-        
+        [Display(Name = "Positions")]
+        public string[] positions { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }

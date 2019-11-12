@@ -12,6 +12,12 @@ namespace ShapeShift.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Organization
+
+        public AppUser GetLoggedInUser()
+        {
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == User.Identity.GetUserId());
+            return (appUser);
+        }
         public ActionResult Index()
         {
             return View();
@@ -50,6 +56,23 @@ namespace ShapeShift.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult EditPositions()
+        {
+            return View();
+        }
+
+
+        // Takes array passed from positions edit view and assigns it as the positions for the array
+        [HttpPost]
+        public ActionResult EditPositions(string[] positions)
+        {
+            AppUser appUser = GetLoggedInUser();
+            Organization organization = db.Organizations.FirstOrDefault(o => o.OrganizationId == appUser.OrganizationId);
+            organization.organizationPositions = positions;
+            db.SaveChanges();
+            return View();
         }
 
         // GET: Organization/Edit/5

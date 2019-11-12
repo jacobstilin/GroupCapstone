@@ -43,6 +43,8 @@ namespace ShapeShift.Controllers
         {
             try
             {
+
+                // NOTE this is currently unused as employees are created in the RegisterEmployee method
                         AppUser newUser = new AppUser();
                         var ownerId = User.Identity.GetUserId();
                         AppUser owner = db.AppUsers.FirstOrDefault(a => a.ApplicationId == ownerId);

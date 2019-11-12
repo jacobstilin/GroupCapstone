@@ -17,7 +17,7 @@ namespace ShapeShift.Models
         // Status: 1 = not taken, 2 = in process, 3 = taken
 
         [Display(Name = "Position Required")]
-        public int position { get; set; }
+        public string position { get; set; }
 
         [Display(Name = "Start Time")]
         public DateTime? start { get; set; }
