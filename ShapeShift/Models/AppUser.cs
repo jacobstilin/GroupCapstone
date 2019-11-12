@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShapeShift.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,6 +25,9 @@ namespace ShapeShift.Models
         [Display(Name = "Positions")]
         public string[] positions { get; set; }
 
+        [Display(Name = "Availability")]
+        public Availability[] availability { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
@@ -31,6 +35,8 @@ namespace ShapeShift.Models
         [ForeignKey("Organization")]
         public int OrganizationId { get; set; }
         public Organization Organization { get; set; }
+
+
 
         
 

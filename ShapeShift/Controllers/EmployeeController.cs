@@ -109,6 +109,22 @@ namespace ShapeShift.Controllers
             }
         }
 
+
+        public ActionResult EditEmployeePositions()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditEmployeePositions(int id, string[] positions)
+        {
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
+            appUser.positions = positions;
+            db.SaveChanges();
+
+            return View();
+        }
+
         // GET: Employee/Delete/5
         public ActionResult Delete(int id)
         {

@@ -236,6 +236,23 @@ namespace ShapeShift.Controllers
                     newUser.firstName = "";
                     newUser.middleName = "";
                     newUser.lastName = "";
+
+
+                    // If this breaks the code fill out the rest of the list with empty strings
+
+                    Availability[] availabilityArray = new Availability[7];
+                    availabilityArray[0] = new Availability();
+                    availabilityArray[0].weekday = "sunday";
+                    availabilityArray[1].weekday = "monday";
+                    availabilityArray[2].weekday = "tuesday";
+                    availabilityArray[3].weekday = "wednesday";
+                    availabilityArray[4].weekday = "thursday";
+                    availabilityArray[5].weekday = "friday";
+                    availabilityArray[6].weekday = "saturday";
+                    newUser.availability = availabilityArray;
+
+
+
                     newUser.ApplicationId = user.Id;
                     newUser.OrganizationId = owner.OrganizationId;
                     

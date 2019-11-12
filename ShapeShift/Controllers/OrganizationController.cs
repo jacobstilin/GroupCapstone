@@ -37,7 +37,7 @@ namespace ShapeShift.Controllers
             return View();
         }
 
-        // POST: Organization/Create
+        // Not currently used as creation occurs during register
         [HttpPost]
         public ActionResult Create([Bind(Include = "OrganizationId,Organization Name")] Organization organization)
         {

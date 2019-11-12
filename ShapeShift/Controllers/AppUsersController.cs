@@ -1,4 +1,5 @@
-﻿using ShapeShift.Models;
+﻿using Microsoft.AspNet.Identity;
+using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,20 @@ namespace ShapeShift.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public AppUser GetLoggedInUser()
+        {
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == User.Identity.GetUserId());
+            return (appUser);
+        }
+
+
         // GET: AppUsers
         public ActionResult Index()
         {
             return View();
         }
 
-
+       
         
         // GET: AppUsers/Details/5
         public ActionResult Details(int id)
@@ -69,6 +77,19 @@ namespace ShapeShift.Controllers
             }
         }
 
+        public ActionResult EditAvailability()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditAvailability(Availability[] availability)
+        {
+            AppUser appUser = GetLoggedInUser();
+            appUser.availability = availability;
+
+            return View();
+        }
         // GET: AppUsers/Delete/5
         public ActionResult Delete(int id)
         {
@@ -91,4 +112,12 @@ namespace ShapeShift.Controllers
             }
         }
     }
+
+    public class Availability
+    {
+        public string weekday { get; set; }
+        public string start { get; set; }
+        public string end { get; set; }
+    }
+  
 }
