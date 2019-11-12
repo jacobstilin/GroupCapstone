@@ -11,7 +11,7 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    @Html.Hidden("UserRoles", "Owner")
+    
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -31,8 +31,7 @@
         </div>
     </div>
 
-    if (ViewBag.displayMenu == "Owner")
-    {
+    
         <div class="form-group">
             @Html.Label("user Role", new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
@@ -40,7 +39,7 @@
                 @Html.DropDownList("Roles", (SelectList)ViewBag.Name, " ")
             </div>
         </div>
-    }
+    
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

@@ -43,10 +43,6 @@ namespace ShapeShift.Controllers
         {
             try
             {
-                
-                    
-                    
-                        
                         AppUser newUser = new AppUser();
                         var ownerId = User.Identity.GetUserId();
                         AppUser owner = db.AppUsers.FirstOrDefault(a => a.ApplicationId == ownerId);
@@ -103,7 +99,7 @@ namespace ShapeShift.Controllers
                 newUser.lastName = appUser.lastName;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Organization");
             }
             catch
             {

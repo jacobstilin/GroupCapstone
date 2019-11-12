@@ -170,10 +170,11 @@ namespace ShapeShift.Controllers
                     db.SaveChanges();
                     AppUser appUser = new AppUser();
                     appUser.OrganizationId = organization.OrganizationId;
-                    appUser.ApplicationId = User.Identity.GetUserId();
+                    appUser.ApplicationId = user.Id;
+
                     // fix this later!
+
                     db.AppUsers.Add(appUser);
-                    
                     db.SaveChanges();
 
                     var id = user.Id;
@@ -202,8 +203,7 @@ namespace ShapeShift.Controllers
         [AllowAnonymous]
         public ActionResult RegisterEmployee()
         {
-            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner"))
-                                            .ToList(), "Name", "Name");
+            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
             ViewBag.displayMenu = "Owner";
                 return View();
         }
@@ -223,7 +223,8 @@ namespace ShapeShift.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
 
                     
                     AppUser newUser = new AppUser();
@@ -234,7 +235,7 @@ namespace ShapeShift.Controllers
                     newUser.middleName = "";
                     newUser.lastName = "";
                     newUser.ApplicationId = user.Id;
-                    newUser.OrganizationId = 1;
+                    newUser.OrganizationId = owner.OrganizationId;
                     
 
                     db.AppUsers.Add(newUser);
