@@ -1,4 +1,5 @@
-﻿using ShapeShift.Models;
+﻿using Microsoft.AspNet.Identity;
+using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +30,28 @@ namespace ShapeShift.Controllers
             return View();
         }
 
-        // POST: Shift/Create
+        // We may need seperate methods for the following:
+            // Manager adds shift to an employee's schedule
+            // Manager adds shift to shift exchange
+            // Employee adds shift to shift exchange
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Shift shift)
         {
+            //In shift view, UserId must be hidden based on creation method
             try
             {
-                // TODO: Add insert logic here
+                Shift newShift = new Shift();
+               
+                // If a shift was created by an employee it will have status 3, taken. If created by owner it will 
+                // have shift status 1, not taken, as found by the AppUser it is connected to. Remember that GetUserId
+                // can not always be used, as different people use the app.
+
+                newShift.position = shift.position;
+                newShift.start = shift.start;
+                newShift.end = shift.end;
+                newShift.additionalInfo = shift.additionalInfo;
+                newShift.UserId = shift.UserId;
+                
 
                 return RedirectToAction("Index");
             }
@@ -53,7 +69,7 @@ namespace ShapeShift.Controllers
 
         // POST: Shift/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Shift shift)
         {
             try
             {
@@ -75,7 +91,7 @@ namespace ShapeShift.Controllers
 
         // POST: Shift/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Shift shift)
         {
             try
             {

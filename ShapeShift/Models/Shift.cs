@@ -14,6 +14,7 @@ namespace ShapeShift.Models
 
         [Display(Name = "Shift Status")]
         public int status { get; set; }
+        // Status: 1 = not taken, 2 = in process, 3 = taken
 
         [Display(Name = "Position Required")]
         public int position { get; set; }
