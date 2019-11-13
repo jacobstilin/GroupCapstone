@@ -35,7 +35,9 @@ namespace ShapeShift.Models
         [ForeignKey("Organization")]
         public int OrganizationId { get; set; }
         public Organization Organization { get; set; }
-
+        
+        [Display(Name = "Phone Number")]
+        public string phoneNumber { get; set; }
 
 
         

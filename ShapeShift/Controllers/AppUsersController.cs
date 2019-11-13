@@ -113,21 +113,21 @@ namespace ShapeShift.Controllers
         public ActionResult EditAvailability()
         {
             AppUser appUser = GetLoggedInUser();
-
-            return View(db.Availabilities.Where(u => u.UserId == appUser.UserId));
+            ICollection<Availability> availability = db.Availabilities.Where(u => u.UserId == appUser.UserId).ToList();
+            return View(availability);
         }
 
         // Availability as it stands is made of strings and is for display purposes only. Availability may eventually
         // need to be readable by the application for comparing it against shifts on the shift exchange.
 
         [HttpPost]
-        public ActionResult EditAvailability(ICollection<Availability> availability)
+        public ActionResult EditAvailability(List<Availability> availability)
         {
             
             AppUser appUser = GetLoggedInUser();
             appUser.Availability = availability;
-
-            return View();
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
 

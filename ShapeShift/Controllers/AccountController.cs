@@ -256,19 +256,18 @@ namespace ShapeShift.Controllers
                     newUser.firstName = "";
                     newUser.middleName = "";
                     newUser.lastName = "";
-
+                    newUser.phoneNumber = "";
 
                     // If this breaks the code fill out the rest of the list with empty strings
-                    
+
                     List<Availability> availabilityList = new List<Availability>();
-                    
-                    availabilityList[0] = new Availability();
-                    availabilityList[1] = new Availability();
-                    availabilityList[2] = new Availability();
-                    availabilityList[3] = new Availability();
-                    availabilityList[4] = new Availability();
-                    availabilityList[5] = new Availability();
-                    availabilityList[6] = new Availability();
+
+                    for (int i = 0; i < 7; i++)
+                    {
+                        availabilityList.Add(null);
+                        availabilityList[i] = new Availability();
+                    }
+
                     availabilityList[0].weekday = "sunday";
                     availabilityList[1].weekday = "monday";
                     availabilityList[2].weekday = "tuesday";
@@ -277,7 +276,7 @@ namespace ShapeShift.Controllers
                     availabilityList[5].weekday = "friday";
                     availabilityList[6].weekday = "saturday";
                     newUser.Availability = availabilityList;
-                    
+
 
 
 
