@@ -90,7 +90,7 @@ namespace ShapeShift.Controllers
         {
             // string value = date.ToShortDateString();
 
-            return View(db.Shifts.Where(s => s.UserId == id && s.start == value && s.status == status && s.position == position);
+            return View(db.Shifts.Where(s => s.UserId == id && s.start == date && s.status == status && s.position == position));
         }
 
 
