@@ -44,12 +44,6 @@ namespace ShapeShift.Models
             return new ApplicationDbContext();
         }
 
-        
-
-        
-
-        
-
-        
+        public System.Data.Entity.DbSet<ShapeShift.Models.Availability> Availabilities { get; set; }
     }
 }

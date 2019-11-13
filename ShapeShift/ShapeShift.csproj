@@ -326,6 +326,7 @@
     <Content Include="Views\Shift\GetEmployeeSchedule.cshtml" />
     <Content Include="Views\AppUsers\ShiftExchange.cshtml" />
     <Content Include="Views\Shift\Create.cshtml" />
+    <Content Include="Views\AppUsers\EditAvailability.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

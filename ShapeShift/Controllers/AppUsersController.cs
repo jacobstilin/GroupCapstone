@@ -14,15 +14,25 @@ namespace ShapeShift.Controllers
 
         public AppUser GetLoggedInUser()
         {
-            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == User.Identity.GetUserId());
+            string currentId = User.Identity.GetUserId();
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
             return (appUser);
         }
 
+
+
+        // In this method and the corresponding view we need to make the status a readable string and convert the 
+        // UserId to the name of the person or something like Admin if it's posted by a manager.
         public ActionResult ShiftExchange()
         {
 
             return View(db.Shifts.Where(s => s.status == 1 || s.status == 2).ToList());
         }
+
+
+        
+
+
 
         // GET: AppUsers
         public ActionResult Index()
@@ -88,7 +98,9 @@ namespace ShapeShift.Controllers
         
         public ActionResult EditAvailability()
         {
-            return View();
+            AppUser appUser = GetLoggedInUser();
+
+            return View(db.Availabilities.Where(u => u.UserId == appUser.UserId));
         }
 
         // Availability as it stands is made of strings and is for display purposes only. Availability may eventually
@@ -97,6 +109,7 @@ namespace ShapeShift.Controllers
         [HttpPost]
         public ActionResult EditAvailability(ICollection<Availability> availability)
         {
+            
             AppUser appUser = GetLoggedInUser();
             appUser.Availability = availability;
 

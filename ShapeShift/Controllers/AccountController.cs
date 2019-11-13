@@ -175,6 +175,25 @@ namespace ShapeShift.Controllers
                     appUser.OrganizationId = organization.OrganizationId;
                     appUser.ApplicationId = user.Id;
 
+
+                    List<Availability> availabilityList = new List<Availability>();
+
+                    for (int i = 0; i < 7; i++)
+                    {
+                        availabilityList.Add(null);
+                        availabilityList[i] = new Availability();
+                    }
+                    
+                    availabilityList[0].weekday = "sunday";
+                    availabilityList[1].weekday = "monday";
+                    availabilityList[2].weekday = "tuesday";
+                    availabilityList[3].weekday = "wednesday";
+                    availabilityList[4].weekday = "thursday";
+                    availabilityList[5].weekday = "friday";
+                    availabilityList[6].weekday = "saturday";
+                    appUser.Availability = availabilityList;
+
+
                     // fix this later!
 
                     db.AppUsers.Add(appUser);
@@ -240,7 +259,7 @@ namespace ShapeShift.Controllers
 
 
                     // If this breaks the code fill out the rest of the list with empty strings
-                    /*
+                    
                     List<Availability> availabilityList = new List<Availability>();
                     
                     availabilityList[0] = new Availability();
@@ -258,7 +277,7 @@ namespace ShapeShift.Controllers
                     availabilityList[5].weekday = "friday";
                     availabilityList[6].weekday = "saturday";
                     newUser.Availability = availabilityList;
-                    */
+                    
 
 
 
