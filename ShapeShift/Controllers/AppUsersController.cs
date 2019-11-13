@@ -58,6 +58,8 @@ namespace ShapeShift.Controllers
         // GET: AppUsers/Edit/5
         public ActionResult Edit(int id)
         {
+            
+            
             return View();
         }
 
@@ -78,7 +80,7 @@ namespace ShapeShift.Controllers
         }
 
 
-        /*
+        
         public ActionResult EditAvailability()
         {
             return View();
@@ -88,7 +90,7 @@ namespace ShapeShift.Controllers
         // need to be readable by the application for comparing it against shifts on the shift exchange.
 
         [HttpPost]
-        public ActionResult EditAvailability(List<Availability> availability)
+        public ActionResult EditAvailability(ICollection<Availability> availability)
         {
             AppUser appUser = GetLoggedInUser();
             appUser.Availability = availability;
@@ -96,7 +98,42 @@ namespace ShapeShift.Controllers
             return View();
         }
 
-        */
+
+        // The following method is used only by the owner to add and edit positions at the company. It assigns these positions
+        // to the organization's AppUser. This may need to be reworked later.
+        public ActionResult AddEditOrgPositions()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddEditOrgPositions(ICollection<Position> positions)
+        {
+            AppUser appUser = GetLoggedInUser();
+            appUser.Positions = positions;
+            db.SaveChanges();
+            return View();
+        }
+
+
+
+        // The following methods are used by the owner to add and edit positions that an employee can work. 
+        public ActionResult AddEditEmployeePositions()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddEditEmployeePositions(int id, ICollection<Position> positions)
+        {
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
+            appUser.Positions = positions;
+            db.SaveChanges();
+
+            return View();
+        }
+
+        
         // GET: AppUsers/Delete/5
         public ActionResult Delete(int id)
         {
@@ -120,11 +157,6 @@ namespace ShapeShift.Controllers
         }
     }
 
-    public class Availability
-    {
-        public string weekday { get; set; }
-        public string start { get; set; }
-        public string end { get; set; }
-    }
+    
   
 }

@@ -226,10 +226,23 @@
     <Compile Include="Migrations\201911131321345_mig10.Designer.cs">
       <DependentUpon>201911131321345_mig10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911131423579_mig111.cs" />
+    <Compile Include="Migrations\201911131423579_mig111.Designer.cs">
+      <DependentUpon>201911131423579_mig111.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911131435352_mig12.cs" />
+    <Compile Include="Migrations\201911131435352_mig12.Designer.cs">
+      <DependentUpon>201911131435352_mig12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911131500341_mig13.cs" />
+    <Compile Include="Migrations\201911131500341_mig13.Designer.cs">
+      <DependentUpon>201911131500341_mig13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AppUser.cs" />
+    <Compile Include="Models\Availability.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -356,6 +369,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911131321345_mig10.resx">
       <DependentUpon>201911131321345_mig10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911131423579_mig111.resx">
+      <DependentUpon>201911131423579_mig111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911131435352_mig12.resx">
+      <DependentUpon>201911131435352_mig12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911131500341_mig13.resx">
+      <DependentUpon>201911131500341_mig13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

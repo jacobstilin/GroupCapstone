@@ -7,22 +7,18 @@ using System.Web;
 
 namespace ShapeShift.Models
 {
-    public class Position
+    public class Availability
     {
         [Key]
-        public int PositionId { get; set; }
+        public int Id { get; set; }
 
         [ForeignKey("AppUser")]
         public int UserId { get; set; }
         public AppUser AppUser { get; set; }
 
+        public string weekday { get; set; }
+        public string start { get; set; }
+        public string end { get; set; }
 
-        [Display(Name = "Title")]
-        public string title { get; set; }
-
-
-
-
-
+        }
     }
-}

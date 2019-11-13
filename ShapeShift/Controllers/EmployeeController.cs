@@ -116,10 +116,10 @@ namespace ShapeShift.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditEmployeePositions(int id, string[] positions)
+        public ActionResult EditEmployeePositions(int id, ICollection<Position> positions)
         {
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
-            appUser.positions = positions;
+            appUser.Positions = positions;
             db.SaveChanges();
 
             return View();

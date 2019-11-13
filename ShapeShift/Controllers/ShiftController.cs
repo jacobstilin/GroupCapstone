@@ -80,8 +80,18 @@ namespace ShapeShift.Controllers
             return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
             
         }
-        // Figure out how to use DateTime.Today 
+        // Figure out how to use DateTime.Today to only show the current week or today and the next six days
 
+        // The following method filters the entire list of shifts based employee, start date, status and position
+        // Make sure this works when not all parameters are passed
+
+        // This definitely needs to be improve
+        public ActionResult FilterShiftList(int id, DateTime date, int status, string position)
+        {
+            // string value = date.ToShortDateString();
+
+            return View(db.Shifts.Where(s => s.UserId == id && s.start == value && s.status == status && s.position == position);
+        }
 
 
         // GET: Shift/Edit/5

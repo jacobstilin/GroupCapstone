@@ -168,7 +168,7 @@ namespace ShapeShift.Controllers
                     await this.UserManager.AddToRoleAsync(user.Id, "Owner");
 
                     Organization organization = new Organization();
-                    organization.organizationPositions = new string[1440];
+                    
                     db.Organizations.Add(organization);
                     db.SaveChanges();
                     AppUser appUser = new AppUser();

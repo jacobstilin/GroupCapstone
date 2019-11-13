@@ -70,7 +70,7 @@ namespace ShapeShift.Controllers
         {
             AppUser appUser = GetLoggedInUser();
             Organization organization = db.Organizations.FirstOrDefault(o => o.OrganizationId == appUser.OrganizationId);
-            organization.organizationPositions = positions;
+           
             db.SaveChanges();
             return View();
         }

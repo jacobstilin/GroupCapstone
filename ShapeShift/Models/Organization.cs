@@ -14,8 +14,7 @@ namespace ShapeShift.Models
         [Display(Name = "Organization Name")]
         public string organizationName { get; set; }
 
-        [Display(Name = "Position")]
-        public string[] organizationPositions { get; set; }
+        
 
 
 
