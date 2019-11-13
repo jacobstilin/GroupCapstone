@@ -15,7 +15,8 @@ namespace ShapeShift.Controllers
 
         public AppUser GetLoggedInUser()
         {
-            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == User.Identity.GetUserId());
+            string currentId = User.Identity.GetUserId();
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
             return (appUser);
         }
         // Returns the AppUser that is currently logged in
@@ -47,10 +48,9 @@ namespace ShapeShift.Controllers
         public ActionResult Create(Shift shift)
         {
             //In shift view, UserId must be hidden based on creation method
-            try
-            {
+            
                 Shift newShift = new Shift();
-               
+                AppUser appUser = GetLoggedInUser();
                 // If a shift was created by an employee it will have status 3, taken. If created by owner it will 
                 // have shift status 1, not taken, as found by the AppUser it is connected to. Remember that GetUserId
                 // can not always be used, as different people use the app.
@@ -59,15 +59,14 @@ namespace ShapeShift.Controllers
                 newShift.start = shift.start;
                 newShift.end = shift.end;
                 newShift.additionalInfo = shift.additionalInfo;
-                newShift.UserId = shift.UserId;
-                
+                newShift.UserId = appUser.UserId;
+                newShift.status = shift.status;
+                db.Shifts.Add(newShift);
+                db.SaveChanges();
 
-                return RedirectToAction("ShiftExchange");
-            }
-            catch
-            {
-                return View();
-            }
+                return RedirectToAction("ShiftExchange", "AppUsers");
+            
+            
         }
 
         

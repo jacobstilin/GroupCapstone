@@ -18,6 +18,11 @@ namespace ShapeShift.Controllers
             return (appUser);
         }
 
+        public ActionResult ShiftExchange()
+        {
+
+            return View(db.Shifts.Where(s => s.status == 1 || s.status == 2).ToList());
+        }
 
         // GET: AppUsers
         public ActionResult Index()

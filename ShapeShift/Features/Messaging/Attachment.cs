@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI.WebControls;
-
+/*
 namespace ShapeShift.Features.Messaging
 {
     public class Attachment
@@ -47,3 +47,5 @@ namespace ShapeShift.Features.Messaging
         }
     }
 }
+
+*/
