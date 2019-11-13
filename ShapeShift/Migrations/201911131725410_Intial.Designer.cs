@@ -7,13 +7,13 @@ namespace ShapeShift.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class mig10 : IMigrationMetadata
+    public sealed partial class Intial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(mig10));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Intial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201911131321345_mig10"; }
+            get { return "201911131725410_Intial"; }
         }
         
         string IMigrationMetadata.Source

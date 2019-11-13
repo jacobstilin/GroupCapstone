@@ -5,13 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace ShapeShift.Controllers
 {
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        public ActionResult SendText()
+        {
+            const string accountSid = "AC3b1a400c4343537508f47488b4542f97";
+            const string authToken = "aa474c6417dfce7a1c98c64aba6f16e6";
+            TwilioClient.Init(accountSid, authToken);
+            var message = MessageResource.Create(
+                body: "Tell me if you get this text - Jacob.",
+                from: new Twilio.Types.PhoneNumber("+12622179385"),
+                to: new Twilio.Types.PhoneNumber("+12628047192")
+            );
+            Console.WriteLine(message.Sid);
+            return View();
+        }
         public AppUser GetLoggedInUser()
         {
             string currentId = User.Identity.GetUserId();

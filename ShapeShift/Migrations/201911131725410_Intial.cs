@@ -3,7 +3,7 @@ namespace ShapeShift.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Intial : DbMigration
     {
         public override void Up()
         {
@@ -91,12 +91,39 @@ namespace ShapeShift.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Availabilities",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false),
+                        weekday = c.String(),
+                        start = c.String(),
+                        end = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AppUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
                 "dbo.Organizations",
                 c => new
                     {
                         OrganizationId = c.Int(nullable: false, identity: true),
+                        organizationName = c.String(),
                     })
                 .PrimaryKey(t => t.OrganizationId);
+            
+            CreateTable(
+                "dbo.Positions",
+                c => new
+                    {
+                        PositionId = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false),
+                        title = c.String(),
+                    })
+                .PrimaryKey(t => t.PositionId)
+                .ForeignKey("dbo.AppUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.Locations",
@@ -114,14 +141,6 @@ namespace ShapeShift.Migrations
                 .Index(t => t.OrganizationId);
             
             CreateTable(
-                "dbo.Positions",
-                c => new
-                    {
-                        PositionId = c.Int(nullable: false, identity: true),
-                    })
-                .PrimaryKey(t => t.PositionId);
-            
-            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -137,6 +156,11 @@ namespace ShapeShift.Migrations
                     {
                         ShiftId = c.Int(nullable: false, identity: true),
                         status = c.Int(nullable: false),
+                        position = c.String(),
+                        start = c.DateTime(),
+                        end = c.DateTime(),
+                        duration = c.Double(),
+                        additionalInfo = c.String(),
                         UserId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ShiftId)
@@ -151,7 +175,9 @@ namespace ShapeShift.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Locations", "OrganizationId", "dbo.Organizations");
             DropForeignKey("dbo.Locations", "AddressId", "dbo.Addresses");
+            DropForeignKey("dbo.Positions", "UserId", "dbo.AppUsers");
             DropForeignKey("dbo.AppUsers", "OrganizationId", "dbo.Organizations");
+            DropForeignKey("dbo.Availabilities", "UserId", "dbo.AppUsers");
             DropForeignKey("dbo.AppUsers", "ApplicationId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -160,6 +186,8 @@ namespace ShapeShift.Migrations
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Locations", new[] { "OrganizationId" });
             DropIndex("dbo.Locations", new[] { "AddressId" });
+            DropIndex("dbo.Positions", new[] { "UserId" });
+            DropIndex("dbo.Availabilities", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -169,9 +197,10 @@ namespace ShapeShift.Migrations
             DropIndex("dbo.AppUsers", new[] { "ApplicationId" });
             DropTable("dbo.Shifts");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Positions");
             DropTable("dbo.Locations");
+            DropTable("dbo.Positions");
             DropTable("dbo.Organizations");
+            DropTable("dbo.Availabilities");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

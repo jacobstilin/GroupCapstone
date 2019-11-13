@@ -52,12 +52,22 @@
       <HintPath>..\packages\MailKit.2.4.1\lib\net47\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="MimeKit, Version=2.4.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
       <HintPath>..\packages\MimeKit.2.4.1\lib\net47\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -111,6 +121,15 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio, Version=5.35.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.35.0\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Common.5.33.1\lib\net45\Twilio.AspNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Mvc, Version=5.33.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Mvc.5.33.1\lib\net451\Twilio.AspNet.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -193,61 +212,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911111534185_initial.cs" />
-    <Compile Include="Migrations\201911111534185_initial.Designer.cs">
-      <DependentUpon>201911111534185_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911111600413_mig1.cs" />
-    <Compile Include="Migrations\201911111600413_mig1.Designer.cs">
-      <DependentUpon>201911111600413_mig1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911111831382_mig2.cs" />
-    <Compile Include="Migrations\201911111831382_mig2.Designer.cs">
-      <DependentUpon>201911111831382_mig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911111953209_mig3.cs" />
-    <Compile Include="Migrations\201911111953209_mig3.Designer.cs">
-      <DependentUpon>201911111953209_mig3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911112128000_mig4.cs" />
-    <Compile Include="Migrations\201911112128000_mig4.Designer.cs">
-      <DependentUpon>201911112128000_mig4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911112246564_mig5.cs" />
-    <Compile Include="Migrations\201911112246564_mig5.Designer.cs">
-      <DependentUpon>201911112246564_mig5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911121623163_mig6.cs" />
-    <Compile Include="Migrations\201911121623163_mig6.Designer.cs">
-      <DependentUpon>201911121623163_mig6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911121839139_mig7.cs" />
-    <Compile Include="Migrations\201911121839139_mig7.Designer.cs">
-      <DependentUpon>201911121839139_mig7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911122213129_mig8.cs" />
-    <Compile Include="Migrations\201911122213129_mig8.Designer.cs">
-      <DependentUpon>201911122213129_mig8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911131253544_mig9.cs" />
-    <Compile Include="Migrations\201911131253544_mig9.Designer.cs">
-      <DependentUpon>201911131253544_mig9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911131321345_mig10.cs" />
-    <Compile Include="Migrations\201911131321345_mig10.Designer.cs">
-      <DependentUpon>201911131321345_mig10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911131423579_mig111.cs" />
-    <Compile Include="Migrations\201911131423579_mig111.Designer.cs">
-      <DependentUpon>201911131423579_mig111.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911131435352_mig12.cs" />
-    <Compile Include="Migrations\201911131435352_mig12.Designer.cs">
-      <DependentUpon>201911131435352_mig12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911131500341_mig13.cs" />
-    <Compile Include="Migrations\201911131500341_mig13.Designer.cs">
-      <DependentUpon>201911131500341_mig13.cs</DependentUpon>
+    <Compile Include="Migrations\201911131725410_Intial.cs" />
+    <Compile Include="Migrations\201911131725410_Intial.Designer.cs">
+      <DependentUpon>201911131725410_Intial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -350,47 +317,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911111534185_initial.resx">
-      <DependentUpon>201911111534185_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911111600413_mig1.resx">
-      <DependentUpon>201911111600413_mig1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911111831382_mig2.resx">
-      <DependentUpon>201911111831382_mig2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911111953209_mig3.resx">
-      <DependentUpon>201911111953209_mig3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911112128000_mig4.resx">
-      <DependentUpon>201911112128000_mig4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911112246564_mig5.resx">
-      <DependentUpon>201911112246564_mig5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911121623163_mig6.resx">
-      <DependentUpon>201911121623163_mig6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911121839139_mig7.resx">
-      <DependentUpon>201911121839139_mig7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911122213129_mig8.resx">
-      <DependentUpon>201911122213129_mig8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911131253544_mig9.resx">
-      <DependentUpon>201911131253544_mig9.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911131321345_mig10.resx">
-      <DependentUpon>201911131321345_mig10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911131423579_mig111.resx">
-      <DependentUpon>201911131423579_mig111.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911131435352_mig12.resx">
-      <DependentUpon>201911131435352_mig12.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911131500341_mig13.resx">
-      <DependentUpon>201911131500341_mig13.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911131725410_Intial.resx">
+      <DependentUpon>201911131725410_Intial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
