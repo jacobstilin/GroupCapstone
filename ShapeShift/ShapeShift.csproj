@@ -313,11 +313,12 @@
     <Content Include="Views\Account\RegisterEmployee.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Shift\GetEmployeeSchedule.cshtml" />
+    <Content Include="Views\AppUsers\ShiftExchange.cshtml" />
+    <Content Include="Views\Shift\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Address\" />
-    <Folder Include="Views\AppUsers\" />
     <Folder Include="Views\Location\" />
     <Folder Include="Views\Manager\" />
     <Folder Include="Views\Position\" />

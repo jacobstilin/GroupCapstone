@@ -62,7 +62,7 @@ namespace ShapeShift.Controllers
                 newShift.UserId = shift.UserId;
                 
 
-                return RedirectToAction("Index");
+                return RedirectToAction("ShiftExchange");
             }
             catch
             {
@@ -93,6 +93,11 @@ namespace ShapeShift.Controllers
             return View(db.Shifts.Where(s => s.UserId == id && s.start == date && s.status == status && s.position == position));
         }
 
+        public ActionResult ShiftExchange()
+        {
+
+            return View(db.Shifts.Where(s => s.status == 1 || s.status == 2).ToList());
+        }
 
         // GET: Shift/Edit/5
         public ActionResult Edit(int id)
