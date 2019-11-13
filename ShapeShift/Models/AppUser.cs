@@ -25,8 +25,7 @@ namespace ShapeShift.Models
         [Display(Name = "Positions")]
         public string[] positions { get; set; }
 
-        [Display(Name = "Availability")]
-        public Availability[] availability { get; set; }
+        
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }

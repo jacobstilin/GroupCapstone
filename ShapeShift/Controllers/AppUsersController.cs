@@ -77,19 +77,26 @@ namespace ShapeShift.Controllers
             }
         }
 
+
+        /*
         public ActionResult EditAvailability()
         {
             return View();
         }
 
+        // Availability as it stands is made of strings and is for display purposes only. Availability may eventually
+        // need to be readable by the application for comparing it against shifts on the shift exchange.
+
         [HttpPost]
-        public ActionResult EditAvailability(Availability[] availability)
+        public ActionResult EditAvailability(List<Availability> availability)
         {
             AppUser appUser = GetLoggedInUser();
-            appUser.availability = availability;
+            appUser.Availability = availability;
 
             return View();
         }
+
+        */
         // GET: AppUsers/Delete/5
         public ActionResult Delete(int id)
         {
