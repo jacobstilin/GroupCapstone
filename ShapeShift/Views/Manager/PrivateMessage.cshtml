@@ -1,0 +1,37 @@
+﻿@model IList<ShapeShift.Models.AppUser>
+@{
+    ViewBag.Title = "PrivateMessage";
+}
+
+<h2>PrivateMessage</h2>
+
+@for (int i = 0; i < Model.Count(); i++)
+{
+
+
+
+
+
+
+    <dt>
+        @Html.DisplayNameFor(model => model[i].firstName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(modelitem => Model[i].firstName);
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model[i].lastName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(modelitem => Model[i].lastName);
+    </dd>
+    @Html.ActionLink("Message", "Composs", new { id = Model[i].UserId }, null)
+
+
+
+}
+
+ 
