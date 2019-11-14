@@ -45,11 +45,11 @@ namespace ShapeShift.Controllers
                 AppUser appUser = GetLoggedInUser();
                 newPosition.title = position.title;
                 newPosition.PositionId = position.PositionId;
-                // TODO: Add insert logic here
+                
 
                 db.Positions.Add(newPosition);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View();
             }
             catch
             {
