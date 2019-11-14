@@ -65,13 +65,11 @@ namespace ShapeShift.Controllers
 
         // POST: Position/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Position position)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
-                AppUser newPosition = db.Positions.FirstOrDefault(p => p.AppUser == id);
-
 
                 return RedirectToAction("Index");
             }
