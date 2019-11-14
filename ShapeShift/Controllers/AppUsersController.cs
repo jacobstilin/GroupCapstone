@@ -183,7 +183,9 @@ namespace ShapeShift.Controllers
             AppUser appUser = db.AppUsers.Find(id);
             return View();
         }
-        // POST: AppUsers/Delete/5
+        // POST: AppUsers/Delete/
+        // to be used in view
+
         [HttpPost]
         public ActionResult DeleteUser(int id)
         {
