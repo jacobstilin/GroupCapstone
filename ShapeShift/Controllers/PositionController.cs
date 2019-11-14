@@ -85,20 +85,27 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Position/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+            Position position = db.Positions.Find(id);
             return View();
         }
 
         // POST: Position/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
                 // TODO: Add delete logic here
+                
+               
+                    Position position = db.Positions.Find(id);
+                    db.Positions.Remove(position);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Organization");
 
-                return RedirectToAction("Index");
+
             }
             catch
             {
