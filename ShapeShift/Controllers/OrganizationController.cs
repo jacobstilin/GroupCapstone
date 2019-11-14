@@ -102,18 +102,21 @@ namespace ShapeShift.Controllers
         // GET: Organization/Delete/5
         public ActionResult Delete(int id)
         {
+            Organization organization = db.Organizations.Find(id);
             return View();
         }
 
         // POST: Organization/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                Organization organization = db.Organizations.Find(id);
+                db.Organizations.Remove(organization);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Organization");
             }
             catch
             {
