@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ShapeShift.Models.AppUser>
+@{
+    ViewBag.Title = "ViewAllEmployees";
+}
+
+<h2>Employees</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phoneNumber)
+        </th>
+        <th>
+            <h2>Availability</h2>
+        </th>
+        <th>
+            <h2>Positions</h2>
+        </th>
+        
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.firstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.lastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.phoneNumber)
+    </td>
+    <td>
+        @Html.ActionLink("View Availability", "ViewAvailability", "AppUsers", new { id = item.UserId }, null)
+    </td>
+    <td>
+        @Html.ActionLink("View Positions", "ViewPositions", "AppUsers", new { id = item.UserId }, null)
+    </td>
+    <td>
+        @Html.ActionLink("Edit Info", "ViewAvailability", "AppUsers", new { id = item.UserId }, null)
+    </td>
+    <td>
+        @Html.ActionLink("Delete User", "DeleteUser", "AppUsers", new { id = item.UserId }, null)
+    </td>
+
+
+
+
+</tr>
+    }
+
+</table>
+
+

@@ -43,7 +43,14 @@ namespace ShapeShift.Controllers
             return View(db.Shifts.Where(s => s.status == 1 || s.status == 2).ToList());
         }
 
+        public ActionResult ViewAllEmployees()
+        {
+            AppUser appUser = GetLoggedInUser();
+            ICollection<AppUser> allEmployees = db.AppUsers.Where(u => u.OrganizationId == appUser.OrganizationId && u.UserId != appUser.UserId).ToList();
+            return View(allEmployees);
+        }
 
+        
         
 
 

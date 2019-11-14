@@ -309,6 +309,7 @@
     <Content Include="Views\Shift\Create.cshtml" />
     <Content Include="Views\AppUsers\EditAvailability.cshtml" />
     <Content Include="Views\Position\Create.cshtml" />
+    <Content Include="Views\AppUsers\ViewAllEmployees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
