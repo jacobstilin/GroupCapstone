@@ -8,6 +8,13 @@ namespace ShapeShift.Controllers
 {
     public class PositionController : Controller
     {
+
+        public AppUser GetLoggedInUser()
+        {
+            string currentId = User.Identity.GetUserId();
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
+            return (appUser);
+        }
         // GET: Position
         public ActionResult Index()
         {
@@ -28,10 +35,14 @@ namespace ShapeShift.Controllers
 
         // POST: Position/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Position position)
         {
             try
             {
+                Position newPosition = new Position();
+                AppUser appUser = GetLoggedInUser();
+                newPosition.title = position.title;
+                newPosition.PositionId = position.PositionId;
                 // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
