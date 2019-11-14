@@ -98,6 +98,9 @@ namespace ShapeShift.Controllers
             return View(db.Shifts.Where(s => s.status == 1 || s.status == 2).ToList());
         }
 
+
+
+
         // GET: Shift/Edit/5
         public ActionResult Edit(int id)
         {
