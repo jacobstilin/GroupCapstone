@@ -32,7 +32,7 @@ namespace ShapeShift.Models
 
         public DbSet<AppUser> AppUsers { get; set; }
 
-        
+        public DbSet<Position> Positions { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

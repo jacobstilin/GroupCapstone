@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using ShapeShift.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,13 @@ namespace ShapeShift.Controllers
 {
     public class PositionController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+        public AppUser GetLoggedInUser()
+        {
+            string currentId = User.Identity.GetUserId();
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
+            return (appUser);
+        }
         // GET: Position
         public ActionResult Index()
         {
@@ -28,12 +37,18 @@ namespace ShapeShift.Controllers
 
         // POST: Position/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Position position)
         {
             try
             {
+                Position newPosition = new Position();
+                AppUser appUser = GetLoggedInUser();
+                newPosition.title = position.title;
+                newPosition.PositionId = position.PositionId;
                 // TODO: Add insert logic here
 
+                db.Positions.Add(newPosition);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -50,11 +65,13 @@ namespace ShapeShift.Controllers
 
         // POST: Position/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Position position)
         {
             try
             {
                 // TODO: Add update logic here
+                AppUser newPosition = db.Positions.FirstOrDefault(p => p.AppUser == id);
+
 
                 return RedirectToAction("Index");
             }

@@ -125,7 +125,17 @@ namespace ShapeShift.Controllers
         {
             
             AppUser appUser = GetLoggedInUser();
-            appUser.Availability = availability;
+            int avaibsId = db.Availabilities.FirstOrDefault(a => a.UserId == appUser.UserId).Id;
+            for (int i = 0; i < availability.Count(); i++)
+            {
+                var avaibChange = db.Availabilities.FirstOrDefault(a => a.Id == avaibsId);
+                Availability setAvaib = availability.ElementAt(i);
+                avaibChange.weekday = setAvaib.weekday;
+                avaibChange.start = setAvaib.start;
+                avaibChange.end = setAvaib.end;
+                avaibsId++;
+            }
+            
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
