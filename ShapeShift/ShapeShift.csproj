@@ -302,13 +302,13 @@
     <Content Include="Views\AppUsers\ShiftExchange.cshtml" />
     <Content Include="Views\Shift\Create.cshtml" />
     <Content Include="Views\AppUsers\EditAvailability.cshtml" />
+    <Content Include="Views\Position\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Address\" />
     <Folder Include="Views\Location\" />
     <Folder Include="Views\Manager\" />
-    <Folder Include="Views\Position\" />
     <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
