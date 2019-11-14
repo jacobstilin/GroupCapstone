@@ -32,6 +32,8 @@ namespace ShapeShift.Controllers
         // GET: Position/Create
         public ActionResult Create()
         {
+            ViewBag.Name = new SelectList(db.AppUsers.Where(u => !u.firstName.Contains("")).ToList(), "Name", "firstName");
+
             return View();
         }
 
