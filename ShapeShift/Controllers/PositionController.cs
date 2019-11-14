@@ -70,10 +70,12 @@ namespace ShapeShift.Controllers
             try
             {
                 // TODO: Add update logic here
-                AppUser newPosition = db.Positions.FirstOrDefault(p => p.AppUser == id);
+                Position newPosition = db.Positions.FirstOrDefault(p => p.PositionId == id);
+                newPosition.title = position.title;
+                newPosition.PositionId = position.PositionId;
+                db.SaveChanges();
 
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Organization");
             }
             catch
             {
