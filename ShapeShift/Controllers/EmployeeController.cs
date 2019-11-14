@@ -103,7 +103,7 @@ namespace ShapeShift.Controllers
                 newUser.middleName = appUser.middleName;
                 newUser.lastName = appUser.lastName;
                 db.SaveChanges();
-
+                
                 return RedirectToAction("Index", "Organization");
             }
             catch
