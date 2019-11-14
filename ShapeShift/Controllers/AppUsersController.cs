@@ -115,8 +115,17 @@ namespace ShapeShift.Controllers
             }
         }
 
+        public ActionResult ViewAvailability(int id)
+        {
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
+            ICollection<Availability> availability = db.Availabilities.Where(u => u.UserId == appUser.UserId).ToList();
+            return View(availability);
+        }
 
-        
+       
+
+
+
         public ActionResult EditAvailability()
         {
             AppUser appUser = GetLoggedInUser();
