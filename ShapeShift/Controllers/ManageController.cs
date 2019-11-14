@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ShapeShift.Models;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace ShapeShift.Controllers
 {
@@ -19,7 +21,19 @@ namespace ShapeShift.Controllers
         public ManageController()
         {
         }
-
+        public ActionResult SendText(string phoneNumber, string Message)
+        {
+            const string accountSid = "AC3b1a400c4343537508f47488b4542f97";
+            const string authToken = "aa474c6417dfce7a1c98c64aba6f16e6";
+            TwilioClient.Init(accountSid, authToken);
+            var message = MessageResource.Create(
+                body: Message,
+                from: new Twilio.Types.PhoneNumber(phoneNumber),
+                to: new Twilio.Types.PhoneNumber("+12628047192")
+            );
+            Console.WriteLine(message.Sid);
+            return View();
+        }
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
