@@ -121,7 +121,7 @@ namespace ShapeShift.Controllers
         // need to be readable by the application for comparing it against shifts on the shift exchange.
 
         [HttpPost]
-        public ActionResult EditAvailability(List<Availability> availability)
+        public ActionResult EditAvailability(ICollection<Availability> availability)
         {
             
             AppUser appUser = GetLoggedInUser();

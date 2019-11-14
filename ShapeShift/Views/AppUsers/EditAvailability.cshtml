@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShapeShift.Models.Availability>
+﻿@model IList<ShapeShift.Models.Availability>
 
 @{
     ViewBag.Title = "EditAvailability";
@@ -19,38 +19,38 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.weekday)
+                <h4>Week Day</h4>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.start)
+                <h4>Start Time</h4>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.end)
+                <h4>End Time</h4>
             </th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @for(var i = 0; i < Model.Count(); i++)
         {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.weekday)
+            @Html.DisplayFor(modelItem => Model[i].weekday)
         </td>
         <td>
             <div class="form-group">
-                @Html.LabelFor(modelItem => item.start, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(modelItem => Model[i].start, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(modelItem => item.start, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(modelItem => item.start, "", new { @class = "text-danger" })
+                    @Html.EditorFor(modelItem => Model[i].start, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(modelItem => Model[i].start, "", new { @class = "text-danger" })
                 </div>
             </div>
         </td>
         <td>
             <div class="form-group">
-                @Html.LabelFor(modelItem => item.end, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(modelItem => Model[i].end, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(modelItem => item.end, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(modelItem => item.end, "", new { @class = "text-danger" })
+                    @Html.EditorFor(modelItem => Model[i].end, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(modelItem => Model[i].end, "", new { @class = "text-danger" })
                 </div>
             </div>
         </td>
