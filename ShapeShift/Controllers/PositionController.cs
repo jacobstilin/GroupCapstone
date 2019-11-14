@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using ShapeShift.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +10,7 @@ namespace ShapeShift.Controllers
 {
     public class PositionController : Controller
     {
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AppUser GetLoggedInUser()
         {
             string currentId = User.Identity.GetUserId();
@@ -45,6 +47,8 @@ namespace ShapeShift.Controllers
                 newPosition.PositionId = position.PositionId;
                 // TODO: Add insert logic here
 
+                db.Positions.Add(newPosition);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
