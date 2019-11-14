@@ -13,14 +13,14 @@ namespace ShapeShift.Controllers
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        public ActionResult SendText()
+        public ActionResult SendText(string phoneNumber,string Message)
         {
             const string accountSid = "AC3b1a400c4343537508f47488b4542f97";
             const string authToken = "aa474c6417dfce7a1c98c64aba6f16e6";
             TwilioClient.Init(accountSid, authToken);
             var message = MessageResource.Create(
-                body: "Tell me if you get this text - Jacob.",
-                from: new Twilio.Types.PhoneNumber("+12622179385"),
+                body:Message,
+                from: new Twilio.Types.PhoneNumber(phoneNumber),
                 to: new Twilio.Types.PhoneNumber("+12628047192")
             );
             Console.WriteLine(message.Sid);
