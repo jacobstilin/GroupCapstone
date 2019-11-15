@@ -224,8 +224,8 @@ namespace ShapeShift.Controllers
         
         public ActionResult RegisterEmployee()
         {
-            string[] role = Roles.GetRolesForUser();
-            if (role.Contains("Owner"))
+            bool isRole = User.IsInRole("Owner");
+            if (isRole == true)
             {
                 ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
                 ViewBag.displayMenu = "Owner";

@@ -100,10 +100,8 @@ namespace ShapeShift.Controllers
         // GET: Employee/Edit/5
         public ActionResult Edit(int id)
         {
-            var theId = User.Identity.GetUserId();
-            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
-            bool isRoleOwner = Roles.IsUserInRole(user.UserName, "Owner");
-            bool isRoleManager = Roles.IsUserInRole(user.UserName, "Admin");
+            bool isRoleOwner = User.IsInRole("Owner");
+            bool isRoleManager = User.IsInRole("Admin");
             if (isRoleOwner == true || isRoleManager == true)
             {
                 return View();

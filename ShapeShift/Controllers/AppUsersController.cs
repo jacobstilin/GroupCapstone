@@ -54,11 +54,10 @@ namespace ShapeShift.Controllers
 
         public ActionResult ViewAllEmployees()
         {
-            var theId = User.Identity.GetUserId();
-            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
-            bool isRoleOwner = Roles.IsUserInRole(user.UserName, "Owner");
-            bool isRoleManager = Roles.IsUserInRole(user.UserName, "Admin");
-            if (isRoleOwner == true || isRoleManager == true)
+            bool isRoleOwner = User.IsInRole("Owner");
+            bool isRoleManager = User.IsInRole("Admin");
+            
+                if (isRoleOwner == true || isRoleManager == true)
                 { 
             AppUser appUser = GetLoggedInUser();
             ICollection<AppUser> allEmployees = db.AppUsers.Where(u => u.OrganizationId == appUser.OrganizationId && u.UserId != appUser.UserId).ToList();
@@ -134,12 +133,9 @@ namespace ShapeShift.Controllers
 
         public ActionResult ViewAvailability(int id)
         {
-            var theId = User.Identity.GetUserId();
-            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
-            bool isRoleOwner = Roles.IsUserInRole(user.UserName, "Owner");
-            bool isRoleManager = Roles.IsUserInRole(user.UserName, "Admin");
+            bool isRoleOwner = User.IsInRole("Owner");
+            bool isRoleManager = User.IsInRole("Admin");
             if (isRoleOwner == true || isRoleManager == true)
-                if (isRoleOwner == true || isRoleManager == true)
             {
                 AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
                 ICollection<Availability> availability = db.Availabilities.Where(u => u.UserId == appUser.UserId).ToList();
