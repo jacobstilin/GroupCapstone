@@ -23,8 +23,8 @@ namespace ShapeShift.Controllers
         }
         public ActionResult SendText(string phoneNumber, string Message)
         {
-            const string accountSid = "AC3b1a400c4343537508f47488b4542f97";
-            const string authToken = "aa474c6417dfce7a1c98c64aba6f16e6";
+            const string accountSid =ApiKeys.TwilioAccountNumber;
+            const string authToken = ApiKeys.TwilioApiKey;
             TwilioClient.Init(accountSid, authToken);
             var message = MessageResource.Create(
                 body: Message,
