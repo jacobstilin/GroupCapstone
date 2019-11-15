@@ -89,13 +89,14 @@ namespace ShapeShift.Controllers
         // GET: Manager/Create
         public ActionResult Create()
         {
+            //sends to register manager page
             return View();
         }
 
         // POST: Manager/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
-        {
+        {                  //return to manager edit for first and last name pass id as well
             try
             {
                 // TODO: Add insert logic here
