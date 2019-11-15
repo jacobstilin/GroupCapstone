@@ -34,14 +34,11 @@ namespace ShapeShift.Controllers
         }
         public ActionResult Index()
         {
-
             
             bool isRole = User.IsInRole("Owner");
             if (isRole == true)
             {
-            ViewBag.Name = new SelectList(db.AppUsers.Where(u => !u.firstName.Contains("")).ToList(), "UserId", "firstName");
-            ViewBag.displayMenu = ViewBag.Name;
-            return View();
+                return View();
             }
             return RedirectToAction("Index", "Home");
 
