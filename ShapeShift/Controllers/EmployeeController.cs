@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ShapeShift.Controllers
 {
@@ -89,7 +90,12 @@ namespace ShapeShift.Controllers
         // GET: Employee/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            string[] role = Roles.GetRolesForUser();
+            if (role.Contains("Owner"))
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Employee/Edit/5

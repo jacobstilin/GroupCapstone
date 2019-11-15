@@ -1,16 +1,57 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ShapeShift.Controllers
 {
+    [Authorize]
     public class OrganizationController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public OrganizationController()
+        {
+
+        }
+
+        public OrganizationController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Organization
 
         public AppUser GetLoggedInUser()
@@ -21,7 +62,14 @@ namespace ShapeShift.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            var theId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
+            bool isRole = Roles.IsUserInRole(user.UserName, "Owner");
+            if (isRole == true)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Organization/Details/5

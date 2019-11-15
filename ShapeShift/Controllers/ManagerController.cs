@@ -10,6 +10,7 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace ShapeShift.Controllers
 {
+    [Authorize]
     public class ManagerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

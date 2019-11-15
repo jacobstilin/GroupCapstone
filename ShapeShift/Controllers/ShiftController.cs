@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ShapeShift.Controllers
 {
+    [Authorize]
     public class ShiftController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

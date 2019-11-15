@@ -1,18 +1,64 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
 namespace ShapeShift.Controllers
 {
+    [Authorize]
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public AppUsersController()
+        {
+
+        }
+
+        public AppUsersController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
+
+
+
         public ActionResult SendText(string phoneNumber,string Message)
         {
             const string accountSid = "AC3b1a400c4343537508f47488b4542f97";
@@ -117,10 +163,15 @@ namespace ShapeShift.Controllers
 
         public ActionResult ViewAvailability(int id)
         {
-            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
-            ICollection<Availability> availability = db.Availabilities.Where(u => u.UserId == appUser.UserId).ToList();
-            return View(availability);
-        }
+            string[] role = Roles.GetRolesForUser();
+            if (role.Contains("Owner") || role.Contains("Admin"))
+            {
+                AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
+                ICollection<Availability> availability = db.Availabilities.Where(u => u.UserId == appUser.UserId).ToList();
+                return View(availability);
+            }
+                return RedirectToAction("Index", "Home");
+            }
 
        
 
