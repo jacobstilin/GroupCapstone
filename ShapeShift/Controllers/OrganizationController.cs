@@ -34,9 +34,8 @@ namespace ShapeShift.Controllers
         }
         public ActionResult Index()
         {
-            var theId = User.Identity.GetUserId();
-            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
-            bool isRole = Roles.IsUserInRole(user.UserName, "Owner");
+            
+            bool isRole = User.IsInRole("Owner");
             if (isRole == true)
             {
                 return View();
@@ -44,6 +43,8 @@ namespace ShapeShift.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        
+        
         // GET: Organization/Details/5
         public ActionResult Details(int id)
         {

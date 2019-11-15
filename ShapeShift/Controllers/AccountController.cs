@@ -201,15 +201,12 @@ namespace ShapeShift.Controllers
                     db.AppUsers.Add(appUser);
                     db.SaveChanges();
 
-                    var id = user.Id;
+                    
 
-                    if (User.Identity.IsAuthenticated)
-                    {
-                        return RedirectToAction("Create", "Employee", new { id = id } );
-                    }
+                    
                     return RedirectToAction("Index", "Organization");
 
-                    // Organization create can only be reached after registration OR upon login if creation has not occured
+                    
                 }
                 AddErrors(result);
             }
