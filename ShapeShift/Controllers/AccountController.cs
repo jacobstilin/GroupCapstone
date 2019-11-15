@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -222,18 +223,24 @@ namespace ShapeShift.Controllers
 
 
 
-        [AllowAnonymous]
+        
         public ActionResult RegisterEmployee()
         {
-            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
-            ViewBag.displayMenu = "Owner";
+            string[] role = Roles.GetRolesForUser();
+            if (role.Contains("Owner"))
+            {
+                ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
+                ViewBag.displayMenu = "Owner";
                 return View();
+            }
+            
+            return RedirectToAction("Index", "Home");
+            
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
         {
