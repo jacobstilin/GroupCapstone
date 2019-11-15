@@ -18,7 +18,12 @@ namespace ShapeShift.Controllers
         // GET: Manager
         public ActionResult Index()
         {
-            return View();
+            AppUser user = GetLoggedInUser();
+            IList<Shift> shifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
+            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
+
+            return View(shifts);
+
         }
       
         public ActionResult PrivateMessage()

@@ -170,7 +170,7 @@ namespace ShapeShift.Controllers
             int avaibsId = db.Availabilities.FirstOrDefault(a => a.UserId == appUser.UserId).Id;
             for (int i = 0; i < availability.Count(); i++)
             {
-                var avaibChange = db.Availabilities.FirstOrDefault(a => a.Id == avaibsId);
+                var avaibChange = db.Availabilities.FirstOrDefault(a => a.Id == avaibsId); //getting id of the availability list being edited
                 Availability setAvaib = availability.ElementAt(i);
                 avaibChange.weekday = setAvaib.weekday;
                 avaibChange.start = setAvaib.start;

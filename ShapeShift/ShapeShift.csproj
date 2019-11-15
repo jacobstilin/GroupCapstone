@@ -317,10 +317,12 @@
     <Content Include="Views\AppUsers\EditAvailability.cshtml" />
     <Content Include="Views\Position\Create.cshtml" />
     <Content Include="Views\Manager\Composs.cshtml" />
-    <Content Include="Views\Manager\index.cshtml" />
     <Content Include="Views\Manager\PrivateMessage.cshtml" />
     <Content Include="Views\Manager\SendGroupText.cshtml" />
     <Content Include="Views\AppUsers\ViewAvailability.cshtml" />
+    <Content Include="Views\Manager\ManagerSchedule.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Manager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

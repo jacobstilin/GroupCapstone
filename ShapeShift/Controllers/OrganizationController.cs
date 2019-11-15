@@ -34,6 +34,7 @@ namespace ShapeShift.Controllers
         }
         public ActionResult Index()
         {
+<<<<<<< Updated upstream
             
             bool isRole = User.IsInRole("Owner");
             if (isRole == true)
@@ -41,6 +42,12 @@ namespace ShapeShift.Controllers
                 return View();
             }
             return RedirectToAction("Index", "Home");
+=======
+
+            ViewBag.Name = new SelectList(db.AppUsers.Where(u => !u.firstName.Contains("")).ToList(), "UserId", "firstName");
+            ViewBag.displayMenu = ViewBag.Name;
+            return View();
+>>>>>>> Stashed changes
         }
 
         

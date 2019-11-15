@@ -16,15 +16,25 @@ namespace ShapeShift.Controllers
         
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        
 
-       
+
+
 
         // GET: Employee
-       
-       public ActionResult Index()
-            { 
-                return View();
+        public AppUser GetLoggedInUser()
+        {
+            string currentId = User.Identity.GetUserId();
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
+            return (appUser);
+        }
+
+        public ActionResult Index()
+            {
+            AppUser user = GetLoggedInUser();
+            IList<Shift> shifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
+            ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
+
+            return View(shifts);
             }
            
         

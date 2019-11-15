@@ -1,10 +1,75 @@
-﻿@model ShapeShift.Models.AppUser
+﻿@model IEnumerable<ShapeShift.Models.Shift>
 
 @{
-    ViewBag.Title = "index";
+    ViewBag.Title = "Index";
 }
 
-<h2>index</h2>
+<h2>Index</h2>
 
 @Html.ActionLink("Send group message", "GroupMessage", "Manger")
 @Html.ActionLink("Send Private message", "PrivateMessage", "Manger")
+
+
+
+<p>
+    @Html.ActionLink("Create Shift", "Create","Shift")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.end)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.additionalInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.end)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.additionalInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ShiftId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ShiftId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ShiftId })
+            </td>
+        </tr>
+    }
+
+</table>
