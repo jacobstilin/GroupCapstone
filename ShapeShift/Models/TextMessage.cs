@@ -10,9 +10,9 @@ namespace ShapeShift.Models
     {
         [Key]
         public string Postion { get; set; }
-        public string NumberToSendTo { get; set; }
+      
         public string BodyOfMessage { get; set; }
         public int id { get; set; }
-        public List<AppUser> ListOfPeopleToSendTo { get; set; }
+
     }
 }
