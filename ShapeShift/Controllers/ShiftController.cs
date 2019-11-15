@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ShapeShift.Controllers
 {
@@ -38,7 +39,22 @@ namespace ShapeShift.Controllers
         // GET: Shift/Create
         public ActionResult Create()
         {
-            return View();
+            // When a shift is created the viewbag displaymenu is passed the role of the user
+
+            var theId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
+            bool isRoleOwner = Roles.IsUserInRole(user.UserName, "Owner");
+            bool isRoleManager = Roles.IsUserInRole(user.UserName, "Admin");
+            ViewBag.displayMenu = "Employee";
+            if (isRoleOwner == true)
+            {
+                ViewBag.displayMenu = "Owner";
+            }
+            if (isRoleManager == true)
+            {
+                ViewBag.displayMenu = "Admin";
+            }
+                return View();
         }
 
         // We may need seperate methods for the following:

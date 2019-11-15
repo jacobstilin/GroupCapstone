@@ -14,44 +14,16 @@ namespace ShapeShift.Controllers
     public class OrganizationController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+       
 
-        public OrganizationController()
-        {
+        
 
-        }
-
-        public OrganizationController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+        
 
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
+        
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        
         // GET: Organization
 
         public AppUser GetLoggedInUser()
