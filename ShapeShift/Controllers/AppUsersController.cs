@@ -48,8 +48,11 @@ namespace ShapeShift.Controllers
         // UserId to the name of the person or something like Admin if it's posted by a manager.
         public ActionResult ShiftExchange()
         {
+            AppUser user = GetLoggedInUser();
 
-            return View(db.Shifts.Where(s => s.status == 1 || s.status == 2).ToList());
+            IList<Shift> shifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
+
+            return View(shifts);
         }
 
         public ActionResult ViewAllEmployees()

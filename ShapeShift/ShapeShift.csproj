@@ -228,6 +228,14 @@
     <Compile Include="Migrations\201911151645393_mig19.Designer.cs">
       <DependentUpon>201911151645393_mig19.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911152039520_change.cs" />
+    <Compile Include="Migrations\201911152039520_change.Designer.cs">
+      <DependentUpon>201911152039520_change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911152057347_new.cs" />
+    <Compile Include="Migrations\201911152057347_new.Designer.cs">
+      <DependentUpon>201911152057347_new.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -323,11 +331,11 @@
     <Content Include="Views\Manager\ManagerSchedule.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
+    <Content Include="Views\Location\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Address\" />
-    <Folder Include="Views\Location\" />
     <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +363,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911151645393_mig19.resx">
       <DependentUpon>201911151645393_mig19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152039520_change.resx">
+      <DependentUpon>201911152039520_change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152057347_new.resx">
+      <DependentUpon>201911152057347_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
