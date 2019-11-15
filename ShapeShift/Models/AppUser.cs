@@ -28,6 +28,9 @@ namespace ShapeShift.Models
         [Display(Name = "Availability")]
         public ICollection<Availability> Availability { get; set; }
 
+        [Display(Name = "Location")]
+        public ICollection<Availability> Location { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

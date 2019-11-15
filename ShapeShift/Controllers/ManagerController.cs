@@ -58,9 +58,9 @@ namespace ShapeShift.Controllers
         [HttpPost]
          public ActionResult GroupMessage(TextMessage textMessage)
         {
-             if(textMessage.Postion != null)
+             if(textMessage.Position != null)
             {
-                var userList = db.AppUsers.Where(e => e.Positions.Where(b => b.title == textMessage.Postion).FirstOrDefault().ToString() == textMessage.Postion);
+                var userList = db.AppUsers.Where(e => e.Positions.Where(b => b.title == textMessage.Position).FirstOrDefault().ToString() == textMessage.Position);
                 foreach (var item in userList)
                 {
                     var number = item.phoneNumber;

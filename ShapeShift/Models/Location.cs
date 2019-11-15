@@ -19,9 +19,9 @@ namespace ShapeShift.Models
         public int AddressId { get; set; }
         public Address Address { get; set; }
 
-        [ForeignKey("Organization")]
-        public int OrganizationId { get; set; }
-        public Organization Organization { get; set; }
+        [ForeignKey("AppUser")]
+        public int UserId { get; set; }
+        public AppUser AppUser { get; set; }
 
     }
 }

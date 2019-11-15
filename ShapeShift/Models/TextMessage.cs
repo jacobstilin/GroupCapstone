@@ -9,7 +9,7 @@ namespace ShapeShift.Models
     public class TextMessage
     {
         [Key]
-        public string Postion { get; set; }
+        public string Position { get; set; }
       
         public string BodyOfMessage { get; set; }
         public int id { get; set; }
