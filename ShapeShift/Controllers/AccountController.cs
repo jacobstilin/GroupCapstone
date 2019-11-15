@@ -148,6 +148,7 @@ namespace ShapeShift.Controllers
                 ViewBag.displayMenu = "Owner";
                 return View();
             }
+
             return View();
         }
 
@@ -191,7 +192,7 @@ namespace ShapeShift.Controllers
                     availabilityList[4].weekday = "thursday";
                     availabilityList[5].weekday = "friday";
                     availabilityList[6].weekday = "saturday";
-                    appUser.Availability = availabilityList;
+                    appUser.Availability = availabilityList; //set the list of availability objects to the icollections of availability objevt
 
 
                     // fix this later!

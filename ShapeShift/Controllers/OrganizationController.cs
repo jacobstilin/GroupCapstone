@@ -16,6 +16,7 @@ namespace ShapeShift.Controllers
         public AppUser GetLoggedInUser()
         {
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == User.Identity.GetUserId());
+            //could we add a get role inside of this to attach to app user for authentication purposes
             return (appUser);
         }
         public ActionResult Index()
