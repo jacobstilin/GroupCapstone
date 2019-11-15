@@ -11,6 +11,9 @@ namespace ShapeShift.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        
+
+
         // GET: Location
         public ActionResult Index()
         {
@@ -24,20 +27,27 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Location/Create
-        public ActionResult Create()
+        public ActionResult CreateLocationName(Location location)
         {
+            ViewBag.Name = new SelectList(db.Locations.Where(l => !l.locationName.Contains("")).ToList(), "locationName", "LocationId");
             return View();
         }
 
         // POST: Location/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Location location)
         {
             try
             {
                 // TODO: Add insert logic here
+                Location newLocation = new Location();
+                
+                newLocation.locationName = location.locationName;
+                newLocation.LocationId = location.LocationId;
+                db.Locations.Add(newLocation);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Organization");
             }
             catch
             {
@@ -53,13 +63,17 @@ namespace ShapeShift.Controllers
 
         // POST: Location/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Location location)
         {
             try
             {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                Location newlocation = db.Locations.FirstOrDefault(l => l.LocationId == id);
+                newlocation.locationName = location.locationName;
+                newlocation.LocationId = location.LocationId;
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Organization");
             }
             catch
             {
@@ -68,20 +82,24 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Location/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteLocation(int id)
         {
+            Location location = db.Locations.Find(id);
             return View();
         }
 
         // POST: Location/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteLocationConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                Location location = db.Locations.Find(id);
+                db.Locations.Remove(location);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index", "Organization");
             }
             catch
             {
