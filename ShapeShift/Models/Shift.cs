@@ -31,7 +31,9 @@ namespace ShapeShift.Models
         [Display(Name = "Additional Information")]
         public string additionalInfo { get; set; }
 
-
+        [ForeignKey("Location")]
+        public int? LocationId { get; set; }
+        public Location Location { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

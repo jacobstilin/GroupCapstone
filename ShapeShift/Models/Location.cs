@@ -23,5 +23,7 @@ namespace ShapeShift.Models
         public int UserId { get; set; }
         public AppUser AppUser { get; set; }
 
+        
+
     }
 }

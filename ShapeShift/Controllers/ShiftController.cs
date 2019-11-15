@@ -40,6 +40,7 @@ namespace ShapeShift.Controllers
         public ActionResult Create()
         {
             // When a shift is created the viewbag displaymenu is passed the role of the user
+            // We also need us a list of locations and positions passed to the viewbag
 
             var theId = User.Identity.GetUserId();
             ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
@@ -78,6 +79,7 @@ namespace ShapeShift.Controllers
                 newShift.additionalInfo = shift.additionalInfo;
                 newShift.UserId = appUser.UserId;
                 newShift.status = shift.status;
+            newShift.LocationId = shift.LocationId;
                 db.Shifts.Add(newShift);
                 db.SaveChanges();
 
