@@ -21,14 +21,14 @@ namespace ShapeShift.Controllers
 
 
         // GET: Employee
-        public AppUser GetLoggedInUser()
+        public AppUser GetLoggedInUser()//Gets current user
         {
             string currentId = User.Identity.GetUserId();
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
             return (appUser);
         }
 
-        public ActionResult Index()
+        public ActionResult Index()//shows a list of the shifts attached to this employees id 
             {
             AppUser user = GetLoggedInUser();
             IList<Shift> shifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
@@ -36,58 +36,7 @@ namespace ShapeShift.Controllers
 
             return View(shifts);
             }
-           
-        
 
-        // GET: Employee/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Employee/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Employee/Create
-        [HttpPost]
-        public ActionResult Create(AppUser appUser)
-        {
-            try
-            {
-
-                // NOTE this is currently unused as employees are created in the RegisterEmployee method
-                        AppUser newUser = new AppUser();
-                        var ownerId = User.Identity.GetUserId();
-                        AppUser owner = db.AppUsers.FirstOrDefault(a => a.ApplicationId == ownerId);
-                        newUser.firstName = appUser.firstName;
-                        newUser.middleName = appUser.middleName;
-                        newUser.lastName = appUser.lastName;
-                        // newUser.ApplicationId = user.Id; 
-                // if it doesn't work, improve
-                        newUser.OrganizationId = owner.OrganizationId;
-                        // organization ID of person logged in is assigned to new employee
-
-                        // add additional lines as AppUsers model is expanded
-
-                        db.AppUsers.Add(newUser);
-                        db.SaveChanges();
-
-                        return RedirectToAction("Index", "Organization");
-
-                        // Organization create can only be reached after registration OR upon login if creation has not occured
-                    
-                    
-
-                
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         private void AddErrors(IdentityResult result)
         {
@@ -98,7 +47,7 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Employee/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id)//Allows you to edit the employees information 
         {
             bool isRoleOwner = User.IsInRole("Owner");
             bool isRoleManager = User.IsInRole("Admin");
@@ -111,7 +60,7 @@ namespace ShapeShift.Controllers
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, AppUser appUser)
+        public ActionResult Edit(int id, AppUser appUser)//post action to change the employees information 
         {
             try
             {
@@ -130,20 +79,20 @@ namespace ShapeShift.Controllers
         }
 
 
-        public ActionResult EditEmployeePositions()
-        {
-            return View();
-        }
+        //public ActionResult EditEmployeePositions()//Called when you 
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult EditEmployeePositions(int id, ICollection<Position> positions)
-        {
-            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
-            appUser.Positions = positions;
-            db.SaveChanges();
+        //[HttpPost]
+        //public ActionResult EditEmployeePositions(int id, ICollection<Position> positions)
+        //{
+        //    AppUser appUser = db.AppUsers.FirstOrDefault(u => u.UserId == id);
+        //    appUser.Positions = positions;
+        //    db.SaveChanges();
 
-            return View();
-        }
+        //    return View();
+        //}
 
         // GET: Employee/Delete/5
         public ActionResult Delete(int id)

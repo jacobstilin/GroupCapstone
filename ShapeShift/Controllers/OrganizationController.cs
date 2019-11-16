@@ -81,22 +81,22 @@ namespace ShapeShift.Controllers
             }
         }
 
-        public ActionResult EditPositions()
-        {
-            return View();
-        }
+        //public ActionResult EditPositions()
+        //{
+        //    return View();
+        //}
 
 
-        // Takes array passed from positions edit view and assigns it as the positions for the array
-        [HttpPost]
-        public ActionResult EditPositions(string[] positions)
-        {
-            AppUser appUser = GetLoggedInUser();
-            Organization organization = db.Organizations.FirstOrDefault(o => o.OrganizationId == appUser.OrganizationId);
+        //// Takes array passed from positions edit view and assigns it as the positions for the array
+        //[HttpPost]
+        //public ActionResult EditPositions(string[] positions)
+        //{
+        //    AppUser appUser = GetLoggedInUser();
+        //    Organization organization = db.Organizations.FirstOrDefault(o => o.OrganizationId == appUser.OrganizationId);
            
-            db.SaveChanges();
-            return View();
-        }
+        //    db.SaveChanges();
+        //    return View();
+        //}
 
         // GET: Organization/Edit/5
         public ActionResult Edit(int id)
