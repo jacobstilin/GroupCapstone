@@ -119,6 +119,8 @@ namespace ShapeShift.Controllers
                 newUser.firstName = appUser.firstName;
                 newUser.middleName = appUser.middleName;
                 newUser.lastName = appUser.lastName;
+                newUser.phoneNumber = appUser.phoneNumber;
+
                 db.SaveChanges();
                 
                 return RedirectToAction("Index", "Organization");

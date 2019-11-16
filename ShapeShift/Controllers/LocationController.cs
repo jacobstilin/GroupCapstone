@@ -35,7 +35,7 @@ namespace ShapeShift.Controllers
 
         // POST: Location/Create
         [HttpPost]
-        public ActionResult Create(Location location)
+        public ActionResult CreateLocation(Location location)
         {
             try
             {
@@ -44,6 +44,7 @@ namespace ShapeShift.Controllers
                 
                 newLocation.locationName = location.locationName;
                 newLocation.LocationId = location.LocationId;
+                newLocation.UserId = location.UserId;
                 db.Locations.Add(newLocation);
                 db.SaveChanges();
 
@@ -71,6 +72,7 @@ namespace ShapeShift.Controllers
                 Location newlocation = db.Locations.FirstOrDefault(l => l.LocationId == id);
                 newlocation.locationName = location.locationName;
                 newlocation.LocationId = location.LocationId;
+                newlocation.UserId = location.UserId;
                 db.SaveChanges();
 
                 return RedirectToAction("Index", "Organization");
