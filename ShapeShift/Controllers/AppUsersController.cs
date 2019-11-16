@@ -105,7 +105,7 @@ namespace ShapeShift.Controllers
         }
 
         [HttpPost]
-        public ActionResult ViewtShift(string userId, string code)
+        public ActionResult ViewShift(string userId, string code)
         {
             return PartialView();
 
@@ -242,18 +242,15 @@ namespace ShapeShift.Controllers
             return View(availability);
         }
 
-        // Availability as it stands is made of strings and is for display purposes only. Availability may eventually
-        // need to be readable by the application for comparing it against shifts on the shift exchange.
 
         [HttpPost]
         public ActionResult EditAvailability(ICollection<Availability> availability)
         {
-            
             AppUser appUser = GetLoggedInUser();
             int avaibsId = db.Availabilities.FirstOrDefault(a => a.UserId == appUser.UserId).Id;
             for (int i = 0; i < availability.Count(); i++)
             {
-                var avaibChange = db.Availabilities.FirstOrDefault(a => a.Id == avaibsId); //getting id of the availability list being edited
+                var avaibChange = db.Availabilities.FirstOrDefault(a => a.Id == avaibsId);
                 Availability setAvaib = availability.ElementAt(i);
                 avaibChange.weekday = setAvaib.weekday;
                 avaibChange.start = setAvaib.start;

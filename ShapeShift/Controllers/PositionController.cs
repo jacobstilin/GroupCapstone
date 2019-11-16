@@ -18,17 +18,8 @@ namespace ShapeShift.Controllers
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
             return (appUser);
         }
-        // GET: Position
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: Position/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        
+        
 
         // GET: Position/Create
         public ActionResult Create()
