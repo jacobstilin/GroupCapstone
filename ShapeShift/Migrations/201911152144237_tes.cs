@@ -3,7 +3,7 @@ namespace ShapeShift.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class change : DbMigration
+    public partial class tes : DbMigration
     {
         public override void Up()
         {

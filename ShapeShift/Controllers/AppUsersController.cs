@@ -40,6 +40,8 @@ namespace ShapeShift.Controllers
             string currentId = User.Identity.GetUserId();
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
             return (appUser);
+
+
         }
 
 
@@ -49,10 +51,33 @@ namespace ShapeShift.Controllers
         public ActionResult ShiftExchange()
         {
             AppUser user = GetLoggedInUser();
+            bool isEmployee = User.IsInRole("Employee");
+            bool isRoleManager = User.IsInRole("Admin");
 
-            IList<Shift> shifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
+            if (isEmployee == true)
+            {
+                IList<Shift> employeeShifts = db.Shifts.Where(s => s.UserId == user.UserId).ToList(); //shows all shifts no matter what positions
+                IList<Position> employeePositions = db.Positions.Where(e => e.UserId == user.UserId).ToList(); 
+                
+                ViewBag.Name1 = new SelectList(db.Positions.Where(u => !u.title.Contains("")).ToList(), "title", "PositionId");
+                ViewBag.Name2 = new SelectList(db.Locations.Where(u => !u.locationName.Contains("")).ToList(), "locationName", "LocationId");
+                return View(employeeShifts);
+               
+                //no matter who is in the shift exchange they should have the ability to 
+            }
 
-            return View(shifts);
+            if (isRoleManager == true)
+            {
+
+                IList<Shift> allShifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
+                ViewBag.Name1 = new SelectList(db.Positions.Where(u => !u.title.Contains("")).ToList(), "title", "PositionId");
+                ViewBag.Name2 = new SelectList(db.Locations.Where(u => !u.locationName.Contains("")).ToList(), "locationName", "LocationId");
+
+                return View(allShifts);
+
+            }
+    
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult ViewAllEmployees()
@@ -260,3 +285,19 @@ namespace ShapeShift.Controllers
     
   
 }
+//bool isRoleOwner = Roles.IsUserInRole(user.UserName, "Owner");
+//bool isEmployee = Roles.IsUserInRole(user.UserName, "Employee");
+//bool isRoleManager = Roles.IsUserInRole(user.UserName, "Admin");
+//            if (isRoleOwner == true)
+//            {
+//                ViewBag.ShowUser = "Owner";
+//            }
+//            if (isRoleManager == true)
+//            {
+//                ViewBag.ShowUser = "Admin";
+//            }
+
+//            if (isEmployee == true)
+//            {
+//                ViewBag.ShowUser = "Employee";
+            }

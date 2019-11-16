@@ -14,8 +14,8 @@ namespace ShapeShift.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
-        public AppUser GetLoggedInUser()
+      
+public AppUser GetLoggedInUser()
         {
             string currentId = User.Identity.GetUserId();
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);

@@ -35,12 +35,12 @@ namespace ShapeShift.Controllers
         public ActionResult Index()
         {
             
-            bool isRole = User.IsInRole("Owner");
-            if (isRole == true)
-            {
+           // bool isRole = User.IsInRole("Owner");
+           // if (isRole == true)
+           // {
                 return View();
-            }
-            return RedirectToAction("Index", "Home");
+          //  }
+          //  return RedirectToAction("Index", "Home");
 
         }
 
