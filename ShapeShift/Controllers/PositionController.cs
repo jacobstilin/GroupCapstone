@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ShapeShift.Controllers
 {
+    [Authorize]
     public class PositionController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -40,22 +41,30 @@ namespace ShapeShift.Controllers
         [HttpPost]
         public ActionResult Create(Position position)
         {
-            try
-            {
-                Position newPosition = new Position();
-                AppUser appUser = GetLoggedInUser();
-                newPosition.title = position.title;
-                newPosition.UserId = position.UserId;
-                
+            AppUser user = GetLoggedInUser();
+            bool isOwner = User.IsInRole("Owner");
+            bool isManager = User.IsInRole("Admin");
 
-                db.Positions.Add(newPosition);
-                db.SaveChanges();
-                return View();
-            }
-            catch
+            if (isOwner == true || isManager == true)
             {
-                return View();
+                try
+                {
+                    Position newPosition = new Position();
+                    AppUser appUser = GetLoggedInUser();
+                    newPosition.title = position.title;
+                    newPosition.UserId = position.UserId;
+
+
+                    db.Positions.Add(newPosition);
+                    db.SaveChanges();
+                    return View();
+                }
+                catch
+                {
+                    return View();
+                }
             }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Position/Edit/5

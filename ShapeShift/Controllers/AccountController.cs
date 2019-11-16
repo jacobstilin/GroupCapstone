@@ -98,10 +98,9 @@ namespace ShapeShift.Controllers
                     }
                     if (roles.Contains("Admin"))
                     {
-                        return RedirectToAction("Manager", "Manager");
+                        return RedirectToAction("Index", "Manager");
                     }
-                        return RedirectToAction("Employee", "Employee");
-                case SignInStatus.LockedOut:
+                        return RedirectToAction("Index", "Employee");                case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
@@ -260,18 +259,14 @@ namespace ShapeShift.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)//Registers an employee with a set list for availability and assign them a user account/And gives them an Organization Id
         {
-            
-
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
 
-                    
                     AppUser newUser = new AppUser();
                     var ownerId = User.Identity.GetUserId();
                     AppUser owner = db.AppUsers.FirstOrDefault(a => a.ApplicationId == ownerId);
@@ -280,8 +275,6 @@ namespace ShapeShift.Controllers
                     newUser.middleName = "";
                     newUser.lastName = "";
                     newUser.phoneNumber = "";
-
-                    // If this breaks the code fill out the rest of the list with empty strings
 
                     List<Availability> availabilityList = new List<Availability>();
 
@@ -298,33 +291,19 @@ namespace ShapeShift.Controllers
                     availabilityList[4].weekday = "thursday";
                     availabilityList[5].weekday = "friday";
                     availabilityList[6].weekday = "saturday";
+
                     newUser.Availability = availabilityList;
-
-
-
-
                     newUser.ApplicationId = user.Id;
                     newUser.OrganizationId = owner.OrganizationId;
                     
-
                     db.AppUsers.Add(newUser);
                     db.SaveChanges();
 
-                    
-
-                  
-
-
                     return RedirectToAction("Edit", "Employee", new { id = newUser.UserId });
-
-                    // Organization create can only be reached after registration OR upon login if creation has not occured
                 }
-                ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner"))
-                                            .ToList(), "Name", "Name");
+                ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
                 AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
