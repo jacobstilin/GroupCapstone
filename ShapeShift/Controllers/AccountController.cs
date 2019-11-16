@@ -155,8 +155,8 @@ namespace ShapeShift.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
+       
+      
 
             //if this doesn't work, improve
         [AllowAnonymous]
@@ -176,7 +176,7 @@ namespace ShapeShift.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)//Here we register a new user and assighn an owner role
         {
             if (ModelState.IsValid)
             {
@@ -196,7 +196,7 @@ namespace ShapeShift.Controllers
                     appUser.ApplicationId = user.Id;
 
 
-                    List<Availability> availabilityList = new List<Availability>();
+                    List<Availability> availabilityList = new List<Availability>();//Here we pre populate the avalibility table with the days of the week
 
                     for (int i = 0; i < 7; i++)
                     {
@@ -214,7 +214,7 @@ namespace ShapeShift.Controllers
                     appUser.Availability = availabilityList; //set the list of availability objects to the icollections of availability objevt
 
 
-                    // fix this later!
+                   
 
                     db.AppUsers.Add(appUser);
                     db.SaveChanges();
@@ -240,7 +240,7 @@ namespace ShapeShift.Controllers
 
 
         
-        public ActionResult RegisterEmployee()
+        public ActionResult RegisterEmployee()//Checks to make sure user is logged in as owner then provides viewbag for employee creation 
         {
             bool isRole = User.IsInRole("Owner");
             if (isRole == true)
@@ -258,7 +258,7 @@ namespace ShapeShift.Controllers
         // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
+        public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)//Registers an employee with a set list for availability and assign them a user account/And gives them an Organization Id
         {
             
 
@@ -312,7 +312,7 @@ namespace ShapeShift.Controllers
 
                     
 
-                    // GOOD MORNING fix this!
+                  
 
 
                     return RedirectToAction("Edit", "Employee", new { id = newUser.UserId });

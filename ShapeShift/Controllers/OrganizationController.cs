@@ -81,22 +81,22 @@ namespace ShapeShift.Controllers
             }
         }
 
-        public ActionResult EditPositions()
-        {
-            return View();
-        }
+        //public ActionResult EditPositions()
+        //{
+        //    return View();
+        //}
 
 
-        // Takes array passed from positions edit view and assigns it as the positions for the array
-        [HttpPost]
-        public ActionResult EditPositions(string[] positions)
-        {
-            AppUser appUser = GetLoggedInUser();
-            Organization organization = db.Organizations.FirstOrDefault(o => o.OrganizationId == appUser.OrganizationId);
+        //// Takes array passed from positions edit view and assigns it as the positions for the array
+        //[HttpPost]
+        //public ActionResult EditPositions(string[] positions)
+        //{
+        //    AppUser appUser = GetLoggedInUser();
+        //    Organization organization = db.Organizations.FirstOrDefault(o => o.OrganizationId == appUser.OrganizationId);
            
-            db.SaveChanges();
-            return View();
-        }
+        //    db.SaveChanges();
+        //    return View();
+        //}
 
         // GET: Organization/Edit/5
         public ActionResult Edit(int id)
@@ -123,7 +123,7 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Organization/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteEmployee(int id)
         {
             Organization organization = db.Organizations.Find(id);
             return View();
@@ -131,7 +131,7 @@ namespace ShapeShift.Controllers
 
         // POST: Organization/Delete/5
         [HttpPost]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteOrganizationConfirmed(int id)
         {
             try
             {

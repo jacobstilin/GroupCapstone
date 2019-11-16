@@ -4,6 +4,7 @@ using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -12,7 +13,7 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace ShapeShift.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,20 +23,8 @@ namespace ShapeShift.Controllers
 
 
 
-        public ActionResult SendText(string phoneNumber,string Message)
-        {
-            const string accountSid = "AC3b1a400c4343537508f47488b4542f97";
-            const string authToken = "aa474c6417dfce7a1c98c64aba6f16e6";
-            TwilioClient.Init(accountSid, authToken);
-            var message = MessageResource.Create(
-                body:Message,
-                from: new Twilio.Types.PhoneNumber(phoneNumber),
-                to: new Twilio.Types.PhoneNumber("+12628047192")
-            );
-            Console.WriteLine(message.Sid);
-            return View();
-        }
-        public AppUser GetLoggedInUser()
+      
+        public AppUser GetLoggedInUser()//Gets the curent logged in user
         {
             string currentId = User.Identity.GetUserId();
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
@@ -54,7 +43,7 @@ namespace ShapeShift.Controllers
             bool isEmployee = User.IsInRole("Employee");
             bool isRoleManager = User.IsInRole("Admin");
 
-            if (isEmployee == true)
+            if (isEmployee == true)//Provides validation to check if user is an employee
             {
                 IList<Shift> employeeShifts = db.Shifts.Where(s => s.UserId == user.UserId).ToList(); //shows all shifts no matter what positions
                 IList<Position> employeePositions = db.Positions.Where(e => e.UserId == user.UserId).ToList(); 
@@ -63,10 +52,10 @@ namespace ShapeShift.Controllers
                 ViewBag.Name2 = new SelectList(db.Locations.Where(u => !u.locationName.Contains("")).ToList(), "locationName", "LocationId");
                 return View(employeeShifts);
                
-                //no matter who is in the shift exchange they should have the ability to 
+                //no matter who is in the shift exchange they should have the ability too 
             }
 
-            if (isRoleManager == true)
+            if (isRoleManager == true)//Checks to see if user is in the role of manager 
             {
 
                 IList<Shift> allShifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
@@ -79,17 +68,87 @@ namespace ShapeShift.Controllers
     
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult AddShift()
+        {
+            //check user role then return avaiability partial view and status of three in post
+            return PartialView();
+
+        }
+
+        [HttpPost]
+        public ActionResult AddShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+        public ActionResult EditShift(int shiftId)
+        {
+            // when clicking accept shift; if user is Employee then change status to 3, and add to database.  When manager loads page it pop up pending shifts div, user ___ has requested shift---, with dynamically added buttons
+            //manager cannot accept shifts, in shift exchange in a hidden div only has pending shifts from pending shift partial view, when they accept it changes status to 2 and adds to the db, and clears pending shifts view
+            return PartialView();
+
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+        //TWO DIFFERENT PARTIAL VIEWS:: ONE FOR THE AVAILABLE SHIFTS AND OTHER FOR YOUR SHIFTS 
+        public ActionResult ViewShifts(string position)
+        {
+            //create a list of shift objects with this position to be rendering in the partial view, on select event
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ViewtShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+        public ActionResult ViewAvailShifts(string position)
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ViewAvailShifts(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+
+        public async Task<ActionResult> DeleteShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+        public async Task<ActionResult> DeletetShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
 
         public ActionResult ViewAllEmployees()
+
+
         {
             bool isRoleOwner = User.IsInRole("Owner");
             bool isRoleManager = User.IsInRole("Admin");
             
-                if (isRoleOwner == true || isRoleManager == true)
+                if (isRoleOwner == true || isRoleManager == true)//Shows all employees linked to the org
                 { 
-            AppUser appUser = GetLoggedInUser();
-            ICollection<AppUser> allEmployees = db.AppUsers.Where(u => u.OrganizationId == appUser.OrganizationId && u.UserId != appUser.UserId).ToList();
-            return View(allEmployees);
+                    AppUser appUser = GetLoggedInUser();
+                    ICollection<AppUser> allEmployees = db.AppUsers.Where(u => u.OrganizationId == appUser.OrganizationId && u.UserId != appUser.UserId).ToList();
+                    return View(allEmployees);
                 }
             return RedirectToAction("Index", "Home");
         }
@@ -300,4 +359,6 @@ namespace ShapeShift.Controllers
 //            if (isEmployee == true)
 //            {
 //                ViewBag.ShowUser = "Employee";
-//            }
+
+
+

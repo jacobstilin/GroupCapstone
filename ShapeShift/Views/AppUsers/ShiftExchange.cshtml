@@ -27,8 +27,9 @@
             @Html.DisplayNameFor(model => model.additionalInfo)
 
         </th>
-        <th>
-            @Html.ActionLink("Add Shift", "Create", "Shift")
+        <th @*<button data-url='@Url.Action("AddShift","AppUsers" )'
+         class="glyphicon-import">Add Shift to Exchange</button>*@
+
         </th>
 
         <th></th>
@@ -50,11 +51,11 @@
                 @Html.DisplayFor(modelItem => item.status)
             </td>
             <td>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Accept Shift" class="btn btn-default" />
-                    </div>
-                </div>
+                @*//transfer to dynamic table if possible*@
+                <button data-url='@Url.Action("Edit Shift","AppUsers", new { id = item.ShiftId } )'
+                        class="glyphicon-import">
+                    Add Shift to Exchange
+                </button>
             </td>
 
         </tr>
@@ -62,10 +63,25 @@
 
 </table>
 
+<div id ="availableShifts">
+    <table>
+        <tr> </tr>
+    </table>
+</div>
+
+
+<div id ="employeeShifts">
+    <table>
+        <tr> </tr>
+    </table>
+</div>
+
+
+@*//render partial all shifts in the column next to it as available shifts.*@
 @Html.Label("Locations", new { @class = "col-md-2 control-label" })
 <div class="col-md-3">
-    @*@Html.DropDownList("Name")*@   
-    @Html.DropDownList("Name1", (IEnumerable  
+    @*@Html.DropDownList("Name")*@
+    @Html.DropDownList("Name1", (IEnumerable
         <SelectListItem>)ViewBag.Name1)
 
 </div>
@@ -77,3 +93,25 @@
            <SelectListItem>)ViewBag.Name2)
 
 </div>
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        console.log("hello");
+    }
+    $('glyphicon-import').on('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+
+        var $shiftExchange = $('#detailsDiv'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $shiftExchange.replaceWith(data);
+        });
+    });
+
+</script>
