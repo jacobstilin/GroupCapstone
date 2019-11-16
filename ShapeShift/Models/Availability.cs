@@ -15,9 +15,15 @@ namespace ShapeShift.Models
         [ForeignKey("AppUser")]
         public int UserId { get; set; }
         public AppUser AppUser { get; set; }
-        public string PhoneNumber { get; set; } 
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Weekday")]
         public string weekday { get; set; }
+
+        [Display(Name = "Start")]
         public string start { get; set; }
+
+        [Display(Name = "End")]
         public string end { get; set; }
 
         }
