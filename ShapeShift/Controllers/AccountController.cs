@@ -158,7 +158,7 @@ namespace ShapeShift.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)//Here we register a new user and assighn an owner role
         {
             if (ModelState.IsValid)
             {
