@@ -216,30 +216,9 @@
     <Compile Include="Migrations\201911131725410_Intial.Designer.cs">
       <DependentUpon>201911131725410_Intial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911131907277_mig14.cs" />
-    <Compile Include="Migrations\201911131907277_mig14.Designer.cs">
-      <DependentUpon>201911131907277_mig14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911141418385_mig2.cs" />
-    <Compile Include="Migrations\201911141418385_mig2.Designer.cs">
-      <DependentUpon>201911141418385_mig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911151645393_mig19.cs" />
-    <Compile Include="Migrations\201911151645393_mig19.Designer.cs">
-      <DependentUpon>201911151645393_mig19.cs</DependentUpon>
-    </Compile>
-
-    <Compile Include="Migrations\201911152121027_mig20.cs" />
- 
-
-    <Compile Include="Migrations\201911152039520_change.cs" />
-    <Compile Include="Migrations\201911152039520_change.Designer.cs">
-      <DependentUpon>201911152039520_change.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911152057347_new.cs" />
-    <Compile Include="Migrations\201911152057347_new.Designer.cs">
-      <DependentUpon>201911152057347_new.cs</DependentUpon>
-
+    <Compile Include="Migrations\201911160646138_program.cs" />
+    <Compile Include="Migrations\201911160646138_program.Designer.cs">
+      <DependentUpon>201911160646138_program.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -337,6 +316,8 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Location\Create.cshtml" />
+    <Content Include="Views\AppUsers\_AddShift.cshtml" />
+    <Content Include="Views\AppUsers\_ViewAllAvailableShifts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,22 +341,8 @@
     <EmbeddedResource Include="Migrations\201911131725410_Intial.resx">
       <DependentUpon>201911131725410_Intial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911131907277_mig14.resx">
-      <DependentUpon>201911131907277_mig14.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911141418385_mig2.resx">
-      <DependentUpon>201911141418385_mig2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911151645393_mig19.resx">
-      <DependentUpon>201911151645393_mig19.cs</DependentUpon>
-    </EmbeddedResource>
-
-    <EmbeddedResource Include="Migrations\201911152039520_change.resx">
-      <DependentUpon>201911152039520_change.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911152057347_new.resx">
-      <DependentUpon>201911152057347_new.cs</DependentUpon>
-
+    <EmbeddedResource Include="Migrations\201911160646138_program.resx">
+      <DependentUpon>201911160646138_program.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

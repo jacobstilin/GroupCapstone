@@ -4,6 +4,7 @@ using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -12,7 +13,7 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace ShapeShift.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -79,8 +80,78 @@ namespace ShapeShift.Controllers
     
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult AddShift()
+        {
+            //check user role then return avaiability partial view and status of three in post
+            return PartialView();
+
+        }
+
+        [HttpPost]
+        public ActionResult AddShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+        public ActionResult EditShift(int shiftId)
+        {
+            // when clicking accept shift; if user is Employee then change status to 3, and add to database.  When manager loads page it pop up pending shifts div, user ___ has requested shift---, with dynamically added buttons
+            //manager cannot accept shifts, in shift exchange in a hidden div only has pending shifts from pending shift partial view, when they accept it changes status to 2 and adds to the db, and clears pending shifts view
+            return PartialView();
+
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+        //TWO DIFFERENT PARTIAL VIEWS:: ONE FOR THE AVAILABLE SHIFTS AND OTHER FOR YOUR SHIFTS 
+        public ActionResult ViewShifts(string position)
+        {
+            //create a list of shift objects with this position to be rendering in the partial view, on select event
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ViewtShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+        public ActionResult ViewAvailShifts(string position)
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ViewAvailShifts(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+
+        public async Task<ActionResult> DeleteShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
+        public async Task<ActionResult> DeletetShift(string userId, string code)
+        {
+            return PartialView();
+
+        }
+
 
         public ActionResult ViewAllEmployees()
+
+
         {
             bool isRoleOwner = User.IsInRole("Owner");
             bool isRoleManager = User.IsInRole("Admin");
@@ -300,4 +371,4 @@ namespace ShapeShift.Controllers
 //            if (isEmployee == true)
 //            {
 //                ViewBag.ShowUser = "Employee";
-            }
+           // }
