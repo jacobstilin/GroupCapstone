@@ -97,20 +97,24 @@ namespace ShapeShift.Controllers
         //}
 
         // GET: Employee/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteEmployee(int id)
         {
+            AppUser appUser = db.AppUsers.Find(id);
             return View();
+           
         }
 
         // POST: Employee/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteEmployeeConfirmed(int id)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                AppUser appUser = db.AppUsers.Find(id);
+                db.AppUsers.Remove(appUser);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Organization");
             }
             catch
             {

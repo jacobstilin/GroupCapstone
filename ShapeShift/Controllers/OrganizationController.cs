@@ -123,7 +123,7 @@ namespace ShapeShift.Controllers
         }
 
         // GET: Organization/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteEmployee(int id)
         {
             Organization organization = db.Organizations.Find(id);
             return View();
@@ -131,7 +131,7 @@ namespace ShapeShift.Controllers
 
         // POST: Organization/Delete/5
         [HttpPost]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteOrganizationConfirmed(int id)
         {
             try
             {
