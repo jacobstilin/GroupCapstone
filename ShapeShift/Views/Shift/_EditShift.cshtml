@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ShapeShift.Models.Shift>
 
 
-<table class="table">
+<table id ="1" class="table" data-url='@Url.Action("LoadAllShifts","AppUsers")' >
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.status)
@@ -95,5 +95,9 @@
 
     });
 
-   
+    $(document).ready(function () {
+
+
+
+    }
 </script>

@@ -48,14 +48,14 @@
                 <h3> Schedule </h3>
                 <div>
 
-                    @Html.Partial("_EditShift", Model)
+                    @Html.Partial("~/Views/Shift/_EditShift.cshtml", Model)
                     @*add shift to exchange add shift to employee*@
 
                 </div>
 
                 <h3> Current Staff</h3>
                 <div>
-                    @Html.Partial("_EditAppUsers", null)
+                    @Html.Partial("~/Views/AppUsers/_EditAppUsers.cshtml")
 
 
                 </div>

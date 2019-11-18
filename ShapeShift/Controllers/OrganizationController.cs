@@ -22,7 +22,8 @@ namespace ShapeShift.Controllers
 
         public AppUser GetLoggedInUser()
         {
-            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == User.Identity.GetUserId());
+            string currentId = User.Identity.GetUserId();
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
             //could we add a get role inside of this to attach to app user for authentication purposes
             return (appUser);
         }
@@ -32,7 +33,7 @@ namespace ShapeShift.Controllers
             // bool isRole = User.IsInRole("Owner");
             // if (isRole == true)
             // {
-           
+            AppUser boss = GetLoggedInUser();
 
                 return View(db.Organizations.Where(e => e.OrganizationId == boss.OrganizationId).SingleOrDefault());
           //  }

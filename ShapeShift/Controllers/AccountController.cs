@@ -82,7 +82,18 @@ namespace ShapeShift.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    // This is where we find the role and send them to the proper home page
+                    ApplicationUser user = db.Users.FirstOrDefault(u => u.Email == model.Email);
+                    IList<string> roles = UserManager.GetRoles(user.Id);
+                    if (roles.Contains("Owner"))
+                    {
+                        return RedirectToAction("Index", "Organization");
+                    }
+                    if (roles.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "Manager");
+                    }
+                    return RedirectToAction("Index", "Employee");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

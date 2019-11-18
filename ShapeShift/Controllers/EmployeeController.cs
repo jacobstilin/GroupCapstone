@@ -56,8 +56,7 @@ namespace ShapeShift.Controllers
             bool isRoleManager = User.IsInRole("Admin");
             if (isRoleOwner == true || isRoleManager == true)
             {
-               AppUser employee = db.AppUsers.Where(e => e.UserId == id).SingleOrDefault();
-                return PartialView("_EditAppUsers", employee);
+                return View();
             }
             return RedirectToAction("Index", "Home");
         }
@@ -76,7 +75,7 @@ namespace ShapeShift.Controllers
 
                 db.SaveChanges();
 
-                return PartialView("_EditAppUsers");
+                return RedirectToAction("Organization", "Index");
 
             }
             catch
@@ -109,7 +108,7 @@ namespace ShapeShift.Controllers
             bool isRoleManager = User.IsInRole("Admin");
             if (isRoleOwner == true || isRoleManager == true)
             {
-                AppUser appUser = db.AppUsers.Where(e => e.UserId == id && e.OrganizationId == theboss.OrganizationId).SingleOrDefault();
+                AppUser appUser = db.AppUsers.Where(e => e.UserId == id).SingleOrDefault();
                 db.AppUsers.Remove(appUser);
                 return PartialView();
 

@@ -17,13 +17,51 @@ namespace ShapeShift.Controllers
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
+        public void LoadOwner()
+        {
+            LoadAllLocations();
+            LoadAllPositions();
+            LoadAllAppUsers();
+        }
+        public void LoadManager()
+        {
+            LoadAllLocations();
+            LoadAllPositions();
+            LoadAllAppUsers();
+            LoadAllShifts();
+        }
+        public void LoadEmployee()
+        {
+            LoadAllLocations();
+            LoadAllPositions();
+            LoadAllAppUsers();
+        }
+        public ActionResult LoadAllAppUsers()
+        {
+            IList<AppUser> users = db.AppUsers.ToList();
+            return PartialView("_CurrentAppUsers", users);
+        }
+        public ActionResult LoadAllLocations()
+        {
+            IList<Location> locations = db.Locations.ToList();
+            return PartialView("_EditLocation", locations);
+        }
+        public ActionResult LoadAllPositions()
+        {
+            IList<Position> positions = db.Positions.ToList();
+            return PartialView("_EditPosition", positions);
+        }
+        public ActionResult LoadAllShifts()
+        {
+            IList<Shift> shift = db.Shifts.ToList();
+            return PartialView("_EditShift", shift);
+        }
 
 
 
 
 
-      
         public AppUser GetLoggedInUser()//Gets the curent logged in user
         {
             string currentId = User.Identity.GetUserId();
