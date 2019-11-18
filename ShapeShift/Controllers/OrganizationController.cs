@@ -14,16 +14,10 @@ namespace ShapeShift.Controllers
     public class OrganizationController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+
        
 
-        
-
-        
-
-
-        
-
-        
         // GET: Organization
 
         public AppUser GetLoggedInUser()
@@ -34,11 +28,13 @@ namespace ShapeShift.Controllers
         }
         public ActionResult Index()
         {
-            
-           // bool isRole = User.IsInRole("Owner");
-           // if (isRole == true)
-           // {
-                return View();
+
+            // bool isRole = User.IsInRole("Owner");
+            // if (isRole == true)
+            // {
+           
+
+                return View(db.Organizations.Where(e => e.OrganizationId == boss.OrganizationId).SingleOrDefault());
           //  }
           //  return RedirectToAction("Index", "Home");
 

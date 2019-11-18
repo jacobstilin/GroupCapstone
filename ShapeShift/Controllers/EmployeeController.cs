@@ -18,7 +18,7 @@ namespace ShapeShift.Controllers
 
 
 
-
+     
 
         // GET: Employee
         public AppUser GetLoggedInUser()//Gets current user
@@ -30,8 +30,11 @@ namespace ShapeShift.Controllers
 
         public ActionResult Index()//shows a list of the shifts attached to this employees id 
             {
+            DateTime today = DateTime.Today;
+
+            IList<Shift> shifts = db.Shifts.Where(e => e.start >= today).ToList();
+
             AppUser user = GetLoggedInUser();
-            IList<Shift> shifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
             ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
 
             return View(shifts);
@@ -53,7 +56,8 @@ namespace ShapeShift.Controllers
             bool isRoleManager = User.IsInRole("Admin");
             if (isRoleOwner == true || isRoleManager == true)
             {
-                return View();
+               AppUser employee = db.AppUsers.Where(e => e.UserId == id).SingleOrDefault();
+                return PartialView("_EditAppUsers", employee);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -71,12 +75,14 @@ namespace ShapeShift.Controllers
                 newUser.phoneNumber = appUser.phoneNumber;
 
                 db.SaveChanges();
-                
-                return RedirectToAction("Index", "Organization");
+
+                return PartialView("_EditAppUsers");
+
             }
             catch
             {
-                return View();
+                return PartialView();
+
             }
         }
 
@@ -99,22 +105,31 @@ namespace ShapeShift.Controllers
         // GET: Employee/Delete/5
         public ActionResult DeleteEmployee(int id)
         {
-            AppUser appUser = db.AppUsers.Find(id);
-            return View();
+            bool isRoleOwner = User.IsInRole("Owner");
+            bool isRoleManager = User.IsInRole("Admin");
+            if (isRoleOwner == true || isRoleManager == true)
+            {
+                AppUser appUser = db.AppUsers.Where(e => e.UserId == id && e.OrganizationId == theboss.OrganizationId).SingleOrDefault();
+                db.AppUsers.Remove(appUser);
+                return PartialView();
+
+            }
+            return RedirectToAction("Index", "Home");
+
            
         }
 
         // POST: Employee/Delete/5
         [HttpPost]
-        public ActionResult DeleteEmployeeConfirmed(int id)
+        public ActionResult DeleteEmployee(int id, AppUser appUser)
         {
             try
             {
                 // TODO: Add delete logic here
-                AppUser appUser = db.AppUsers.Find(id);
-                db.AppUsers.Remove(appUser);
+                AppUser appUser1 = db.AppUsers.Find(id);
+                db.AppUsers.Remove(appUser1);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Organization");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

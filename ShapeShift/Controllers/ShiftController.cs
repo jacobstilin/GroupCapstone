@@ -3,7 +3,6 @@ using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -24,6 +23,121 @@ public AppUser GetLoggedInUser()
         // Returns the AppUser that is currently logged in
 
 
+        public ActionResult AddShiftToSchedule()
+        {
+            //Add employee to shift, and add shift to database
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+
+            return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
+
+        }
+
+        [HttpPost]
+        public ActionResult AddShiftToSchedule(Shift shift)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+
+            return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
+
+        }
+        public ActionResult ApproveShift(int shiftId)
+        {
+
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+            Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
+
+            if (shift.UserId != 0 && shift.status != 1)//means there is a user who is requesting to exchange but its just pending
+            {
+                shift.status = 1;
+                shift.User = null;
+                shift.UserId = 0;
+                shift.ShiftId = shiftId;
+                db.SaveChanges();
+
+
+            }
+            else //its pending and theres no user id, and its in shift exchange
+            {
+             
+                shift.status = 3;
+                shift.ShiftId = shiftId;
+
+                db.SaveChanges();
+            }
+            db.SaveChanges();
+            return PartialView("_PendingShifts");
+
+        }
+
+        public ActionResult RejectShift(int shiftId)
+        {
+            Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
+
+            if (shift.UserId != 0 && shift.status != 1)//means there is a user who is requesting to exchange but its just pending
+            {
+                shift.status = 3;
+                shift.ShiftId = shiftId;
+                db.SaveChanges();
+
+
+            }
+            else //its pending and theres no user id, and its in shift exchange
+            {
+
+                shift.status = 1;
+                shift.User = null;
+                shift.UserId = 0;
+                shift.ShiftId = shiftId;
+
+                db.SaveChanges();
+            }
+            db.SaveChanges();
+            return PartialView("_PendingShifts");
+
+
+        }
+
+        public ActionResult AddShiftToExchange(int shiftId)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+           Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
+
+            shift.status = 1;
+            shift.User = null;
+            shift.ShiftId = shiftId;
+            db.SaveChanges();
+            return PartialView("_MyShifts");
+
+        }
+
+        [HttpPost]
+        public ActionResult AddShiftToExchange(Shift shift)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+
+            return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
+
+        }
+
+        public ActionResult RequestShift(int shiftId)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+            Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
+
+            shift.status = 2;
+            shift.User = appUser;
+            shift.ShiftId = shiftId;
+            db.SaveChanges();
+            return PartialView("_ViewAllAvailableShifts");
+
+        }
+
         // GET: Shift
         public ActionResult Index()
         {
@@ -40,7 +154,6 @@ public AppUser GetLoggedInUser()
         public ActionResult Create()
         {
             // When a shift is created the viewbag displaymenu is passed the role of the user
-            // We also need us a list of locations and positions passed to the viewbag
 
             var theId = User.Identity.GetUserId();
             ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == theId);
@@ -49,19 +162,31 @@ public AppUser GetLoggedInUser()
             ViewBag.displayMenu = "Employee";
             if (isRoleOwner == true)
             {
-                ViewBag.displayMenu = "Owner";
+                var ownerRole = db.Roles.Where(e => e.Name == "Owner").SingleOrDefault();
+                var ownerOfCompany = db.Users.Where(e => e.Roles == ownerRole).SingleOrDefault();
+                AppUser theBoss = db.AppUsers.Where(e => e.ApplicationId == ownerOfCompany.Id).SingleOrDefault();
+                var ownerPositions = theBoss.Positions.ToList();
+                var ownerLocations = db.Locations.ToList();
+                ViewBag.Name1 = new SelectList(ownerPositions, "title", "PositionId");
+                ViewBag.Name2 = new SelectList(ownerLocations, "locationName", "LocationId");
             }
             if (isRoleManager == true)
             {
+                var ownerRole = db.Roles.Where(e => e.Name == "Owner").SingleOrDefault();
+                var ownerOfCompany = db.Users.Where(e => e.Roles == ownerRole).SingleOrDefault();
+                AppUser theBoss = db.AppUsers.Where(e => e.ApplicationId == ownerOfCompany.Id).SingleOrDefault();
+                var ownerPositions = theBoss.Positions.ToList();
+                var ownerLocations = db.Locations.ToList();
+                IList<AppUser> AppUsers = db.AppUsers.Where(e => e.OrganizationId == theBoss.OrganizationId).ToList();
+                ViewBag.Name1 = new SelectList(ownerPositions, "title", "PositionId");
+                ViewBag.Name2 = new SelectList(ownerLocations, "locationName", "LocationId");
+                ViewBag.Name3 = new SelectList(AppUsers, "firstName", "UserId");
                 ViewBag.displayMenu = "Admin";
             }
                 return View();
-        }
+        }  //Is not a partial view
 
-        // We may need seperate methods for the following:
-            // Manager adds shift to an employee's schedule
-            // Manager adds shift to shift exchange
-            // Employee adds shift to shift exchange
+       
         [HttpPost]
         public ActionResult Create(Shift shift)
         {
@@ -83,7 +208,7 @@ public AppUser GetLoggedInUser()
                 db.Shifts.Add(newShift);
                 db.SaveChanges();
 
-                return RedirectToAction("ShiftExchange", "AppUsers");
+                return RedirectToAction("Index", "Home");
             
             
         }
@@ -95,7 +220,7 @@ public AppUser GetLoggedInUser()
             AppUser appUser = GetLoggedInUser();
             DateTime today = DateTime.Today;
 
-            return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
+            return View(db.Shifts.Where(s => s.UserId == appUser.UserId && s.start >= today).ToList());
             
         }
         // Figure out how to use DateTime.Today to only show the current week or today and the next six days
@@ -116,8 +241,6 @@ public AppUser GetLoggedInUser()
 
             return View(db.Shifts.Where(s => s.status == 1 || s.status == 2).ToList());
         }
-
-
 
 
         // GET: Shift/Edit/5

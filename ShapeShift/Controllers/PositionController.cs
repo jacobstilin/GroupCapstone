@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 namespace ShapeShift.Controllers
 {
-    [Authorize]
     public class PositionController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,8 +17,28 @@ namespace ShapeShift.Controllers
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
             return (appUser);
         }
-        
-        
+        // GET: Position
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult AddPositionToEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddPositionToEmployee(AppUser appUser)
+        {
+            return View();
+        }
+
+        // GET: Position/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
 
         // GET: Position/Create
         public ActionResult Create()
@@ -32,56 +51,55 @@ namespace ShapeShift.Controllers
         [HttpPost]
         public ActionResult Create(Position position)
         {
-            AppUser user = GetLoggedInUser();
-            bool isOwner = User.IsInRole("Owner");
-            bool isManager = User.IsInRole("Admin");
-
-            if (isOwner == true || isManager == true)
+            try
             {
-                try
-                {
-                    Position newPosition = new Position();
-                    AppUser appUser = GetLoggedInUser();
-                    newPosition.title = position.title;
-                    newPosition.UserId = position.UserId;
+                Position newPosition = new Position();
+                AppUser appUser = GetLoggedInUser();
+                newPosition.title = position.title;
+                newPosition.PositionId = position.PositionId;
+                
 
-
-                    db.Positions.Add(newPosition);
-                    db.SaveChanges();
-                    return View();
-                }
-                catch
-                {
-                    return View();
-                }
+                db.Positions.Add(newPosition);
+                db.SaveChanges();
+                return View();
             }
-            return RedirectToAction("Index", "Home");
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Position/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.Name1 = new SelectList(db.Locations.ToList(), "title", "PositionId");
+            ViewBag.Name2 = new SelectList(db.Positions.ToList(), "locationName", "LocationId");
+            Position newPosition = db.Positions.FirstOrDefault(p => p.PositionId == id);
+
+            return PartialView("_EditIndividualPosition", newPosition);
+
         }
 
         // POST: Position/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Position position)
+        public ActionResult Edit(Position position)
         {
             try
             {
 
-                Position newPosition = db.Positions.FirstOrDefault(p => p.PositionId == id);
+
+                Position newPosition = db.Positions.FirstOrDefault(p => p.PositionId == position.PositionId);
                 newPosition.title = position.title;
                 newPosition.PositionId = position.PositionId;
                 db.SaveChanges();
 
 
-                return RedirectToAction("Index", "Organization");
+                return PartialView("_EditPosition");
+                
             }
             catch
             {
-                return View();
+                return PartialView();
             }
         }
 
@@ -89,29 +107,10 @@ namespace ShapeShift.Controllers
         public ActionResult Delete(int? id)
         {
             Position position = db.Positions.Find(id);
+            db.Positions.Remove(position);
             return View();
         }
 
-        // POST: Position/Delete/5
-        [HttpPost]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                
-               
-                    Position position = db.Positions.Find(id);
-                    db.Positions.Remove(position);
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Organization");
-
-
-            }
-            catch
-            {
-                return View();
-            }
-        }
+   
     }
 }

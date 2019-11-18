@@ -18,8 +18,20 @@ namespace ShapeShift.Controllers
         // GET: Manager
         public ActionResult Index()
         {
+            ViewBag.Name1 = new SelectList(db.Locations.ToList(), "title", "PositionId");
+            ViewBag.Name2 = new SelectList(db.Positions.ToList(), "locationName", "LocationId");
+
+            DateTime today = DateTime.Today;
+
+            bool isEmployee = true;
+            bool isRoleManager = User.IsInRole("Admin");
+
+            if (isEmployee == true)//Provides validation to check if user is an employee
+            {
+                RedirectToAction("Index", "Home");
+            }
             AppUser user = GetLoggedInUser();
-            IList<Shift> shifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
+            IList<Shift> shifts = db.Shifts.Where(e => e.start >= today).ToList();
             ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
 
             return View(shifts);
@@ -56,6 +68,8 @@ namespace ShapeShift.Controllers
             Console.WriteLine(message.Sid);
             return RedirectToAction("Index");
         }
+   
+
         public ActionResult SendGroupText()
         {
             return View(); 

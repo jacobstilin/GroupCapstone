@@ -1,11 +1,8 @@
 ﻿@model ShapeShift.Models.Shift
 
-<div>
-    <h4>Available Shifts</h4>
+<div id="shiftdisplay">
+    <h4>Shift</h4>
     <hr />
-    @Html.HiddenFor(model => model.LocationId)
-    @Html.HiddenFor(model => model.status)
-    @Html.HiddenFor(model => model.UserId)
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.status)
@@ -71,15 +68,11 @@
             @Html.DisplayFor(model => model.UserId)
         </dd>
         <dd>
-      
-            <li>@Html.ActionLink("Request Shift", "RequestShift", "Shift", new { id = Model.ShiftId })</li>
 
-
+            <li>@Html.ActionLink("Add to Exchange", "AddShiftToExchange", "Shift", new { id = Model.ShiftId })</li>
         </dd>
-
     </dl>
 </div>
+<p>
 
-
-
-
+</p>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ShapeShift.Models.Position>
+
+
+    <table class="table">
+
+        <tr>
+
+            <th hidden>
+
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            @Html.HiddenFor(modelitem => item.UserId)
+          
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+
+                    <button id="EditPosition" data-url='@Url.Action("Edit", "Position", new { id = item.PositionId })'>Edit Position</button>
+                    @Html.ActionLink("Delete Position", "Delete", "Position", new { id = item.PositionId })
+
+                </td>
+            </tr>
+            <tr>
+                <td id="EditPositionField" class="hidden">
+                    @Html.Partial("_EditIndividualPosition", item)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <script>
+    $('#EditPosition').click(function () {
+        evt.preventDefault();
+        evt.stopPropagation();
+        $('#EditPositionField').show();
+        var $detailDiv = $('#EditPositionEmpty'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.replaceWith(data);
+        });
+
+    });
+    </script>

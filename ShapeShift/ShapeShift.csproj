@@ -211,13 +211,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911131725410_Intial.cs" />
-    <Compile Include="Migrations\201911131725410_Intial.Designer.cs">
-      <DependentUpon>201911131725410_Intial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911161924021_mig21.cs" />
-    <Compile Include="Migrations\201911161924021_mig21.Designer.cs">
-      <DependentUpon>201911161924021_mig21.cs</DependentUpon>
+    <Compile Include="Migrations\201911161752313_mig.cs" />
+    <Compile Include="Migrations\201911161752313_mig.Designer.cs">
+      <DependentUpon>201911161752313_mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -317,6 +313,20 @@
     <Content Include="Views\Location\Create.cshtml" />
     <Content Include="Views\AppUsers\_AddShift.cshtml" />
     <Content Include="Views\AppUsers\_ViewAllAvailableShifts.cshtml" />
+    <Content Include="Views\AppUsers\_MyShifts.cshtml" />
+    <Content Include="Views\Organization\_CurrentAppUsers.cshtml" />
+    <Content Include="Views\Manager\_PendingShifts.cshtml" />
+    <Content Include="Views\Manager\_EditIndividualShift.cshtml" />
+    <Content Include="Views\Employee\_EditEmployee.cshtml" />
+    <Content Include="Views\Employee\_CurrentSchedule.cshtml" />
+    <Content Include="Views\Location\Edit.cshtml" />
+    <Content Include="Views\Position\_EditPosition.cshtml" />
+    <Content Include="Views\Location\_EditLocation.cshtml" />
+    <Content Include="Views\Shift\_EditShift.cshtml" />
+    <Content Include="Views\AppUsers\_EditAppUsers.cshtml" />
+    <Content Include="Views\AppUsers\_ViewAvailability.cshtml" />
+    <Content Include="Views\Location\_EditIndividualLocation.cshtml" />
+    <Content Include="Views\Position\_EditIndividualPosition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -337,11 +347,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911131725410_Intial.resx">
-      <DependentUpon>201911131725410_Intial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911161924021_mig21.resx">
-      <DependentUpon>201911161924021_mig21.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911161752313_mig.resx">
+      <DependentUpon>201911161752313_mig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

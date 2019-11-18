@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ShapeShift.Models.AppUser>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div ="CurrentAppUserDiv"></div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.middleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrganizationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.middleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phoneNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Employee", new { id = item.UserId }) |
+                @Html.ActionLink("Delete", "Delete", "Employee", new { id = item.UserId })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -4,9 +4,42 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+<style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    h1 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
+    .row.content {
+        height: 1500px
+    }
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     
+        background-color: deepskyblue;
+        height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #555;
+        color: white;
+        padding: 15px;
+    }
+    .navbar {
+        color: deepskyblue;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+
+</style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -33,7 +66,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - MakeShift</p>
         </footer>
     </div>
 

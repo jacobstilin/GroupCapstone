@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ShapeShift.Models.Location>
+
+
+
+
+<table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.locationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddressId)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @Html.HiddenFor(modelItem => item.UserId)
+        @Html.HiddenFor(modelItem => item.AddressId)
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.locationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                <button id="EditLocation" data-url='@Url.Action("Edit","Location", new { id = item.LocationId  })'>Edit Location</button>
+                @Html.ActionLink("Delete Location", "Delete", "Location", new { id = item.LocationId })
+
+            </td>
+        </tr>
+        <tr>
+            <td id="EditLocationField" class="hidden">
+                @Html.Partial("_EditIndividualLocation", item)
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+  $('#EditShift').click(function () {
+        evt.preventDefault();
+        evt.stopPropagation();
+        $('#EditShiftField').show();
+        var $detailDiv = $('#EditShiftEmpty'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.replaceWith(data);
+        });
+
+    });
+    </script>

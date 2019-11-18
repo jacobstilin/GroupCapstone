@@ -4,72 +4,108 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-@Html.ActionLink("Send group message", "GroupMessage", "Manager")
-@Html.ActionLink("Send Private message", "PrivateMessage", "Manager")
 
 
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<p>
-    @Html.ActionLink("Create Shift", "Create","Shift")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.position)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.start)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.end)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.additionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th></th>
-    </tr>
+</head>
+<body>
+    <h1>Manager Home Page</h1>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <br />
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.position)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.start)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.end)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.additionalInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ShiftId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ShiftId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ShiftId })
-            </td>
-        </tr>
-    }
+                }
 
-</table>
+                <ul class="nav nav-pills nav-stacked">
+
+                    <li> @Html.ActionLink("Send group message", "GroupMessage", "Manger")</li>
+                    <li> @Html.ActionLink("Send Private message", "PrivateMessage", "Manger")</li>
+                    <li> @Html.ActionLink("Shift Exchange", "ShiftExchange", "AppUsers") </li>
+                    <li>  @Html.ActionLink("Availability", "ViewAvailability", "AppUsers", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>  @Html.ActionLink("Availability", "EditAvailability", "AppUsers", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>  @Html.ActionLink("Add Shift", "Create", "Shift") </li>
+                    <li>@Html.ActionLink("Add Employee", "RegisterEmployee", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+
+                </ul><br>
+
+            </div>
+
+
+            <div class="col-sm-6">
+
+
+                <h3> Schedule </h3>
+                <div>
+
+                    @Html.Partial("_EditShift", Model)
+                    @*add shift to exchange add shift to employee*@
+
+                </div>
+
+                <h3> Current Staff</h3>
+                <div>
+                    @Html.Partial("_EditAppUsers", null)
+
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="col-sm-3 ">
+
+                <h3> Pending Shifts</h3>
+
+                <div>
+
+                    @Html.Partial("_PendingShifts", Model)
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+    <li hidden>@Html.ActionLink("Add Employee", "RegisterEmployee", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+
+    <footer class="container-fluid">
+        <p>MakeShift</p>
+    </footer>
+
+    <script>
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
