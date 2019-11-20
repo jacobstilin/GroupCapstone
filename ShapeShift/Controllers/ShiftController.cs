@@ -68,7 +68,7 @@ public AppUser GetLoggedInUser()
                 db.SaveChanges();
             }
             db.SaveChanges();
-            return PartialView("_PendingShifts");
+            return PartialView("~/Views/Manager/_PendingShifts.cshtml", db.Shifts.Where(e => e.status == 2));
 
         }
 
@@ -95,48 +95,12 @@ public AppUser GetLoggedInUser()
                 db.SaveChanges();
             }
             db.SaveChanges();
-            return PartialView("_PendingShifts");
+            return PartialView("~/Views/Manager/_PendingShifts.cshtml", db.Shifts.Where(e => e.status == 2));
 
 
         }
 
-        public ActionResult AddShiftToExchange(int shiftId)
-        {
-            AppUser appUser = GetLoggedInUser();
-            DateTime today = DateTime.Today;
-           Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
 
-            shift.status = 1;
-            shift.User = null;
-            shift.ShiftId = shiftId;
-            db.SaveChanges();
-            return PartialView("_MyShifts");
-
-        }
-
-        [HttpPost]
-        public ActionResult AddShiftToExchange(Shift shift)
-        {
-            AppUser appUser = GetLoggedInUser();
-            DateTime today = DateTime.Today;
-
-            return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
-
-        }
-
-        public ActionResult RequestShift(int shiftId)
-        {
-            AppUser appUser = GetLoggedInUser();
-            DateTime today = DateTime.Today;
-            Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
-
-            shift.status = 2;
-            shift.User = appUser;
-            shift.ShiftId = shiftId;
-            db.SaveChanges();
-            return PartialView("_ViewAllAvailableShifts");
-
-        }
 
         // GET: Shift
         public ActionResult Index()

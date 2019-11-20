@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ShapeShift.Models.AppUser>
 
 
-<table class="table">
+<table id ="11" class="table" data-url='@Url.Action("Edit","AppUsers")'>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.firstName)
@@ -48,11 +48,42 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", "Employee", new { id = item.UserId }) |
                 @Html.ActionLink("Delete", "Delete", "Employee", new { id = item.UserId })
+                <button id="EditEmployee" data-url='@Url.Action("Edit","Shift")'> Edit Employee</button> //Link to edit Employee on Employee Controller returns partial view Current Employee, link to delete employee popps on partial
+                <button id="DeleteEmployee" data-url='@Url.Action("Delete","Employee)'> Delete Employee</button> //Link to delete EMployee on Employee Controller returns partial view Current Employee
+
             </td>
         </tr>
     }
 
 </table>
 
-@*<button> Delete Employee</button> //Link to delete EMployee on Employee Controller returns partial view Current Employee
-    <button> Edit Employee</button> //Link to edit Employee on Employee Controller returns partial view Current Employee, link to delete employee popps on partial*@
+
+
+<script>
+     $('#EditEmployee').click(function () {
+        evt.preventDefault();
+        evt.stopPropagation();
+        $('#EditShiftField').show();
+        var $detailDiv = $('#EditShiftEmpty'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.replaceWith(data);
+        });
+
+     });
+
+      $('#DeleteEmployee').click(function () {
+        evt.preventDefault();
+        evt.stopPropagation();
+        $('#EditShiftField').show();
+        var $detailDiv = $('#EditShiftEmpty'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.replaceWith(data);
+        });
+
+    });
+
+</script>

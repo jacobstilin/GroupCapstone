@@ -24,20 +24,46 @@ namespace ShapeShift.Controllers
         {
             string currentId = User.Identity.GetUserId();
             AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
-            //could we add a get role inside of this to attach to app user for authentication purposes
             return (appUser);
         }
+
+        public void LoadOwner()
+        {
+            LoadAllLocations();
+            LoadAllPositions();
+            LoadAllAppUsers();
+        }
+        public ActionResult LoadAllAppUsers()
+        {
+            IList<AppUser> users = db.AppUsers.ToList();
+            return PartialView("_CurrentAppUsers", users);
+        }
+        public ActionResult LoadAllLocations()
+        {
+            IList<Location> locations = db.Locations.ToList();
+            return PartialView("_EditLocation", locations);
+        }
+        public ActionResult LoadAllPositions()
+        {
+            IList<Position> positions = db.Positions.ToList();
+            return PartialView("_EditPosition", positions);
+        }
+        
         public ActionResult Index()
         {
-
-            // bool isRole = User.IsInRole("Owner");
-            // if (isRole == true)
+            LoadOwner();
+            
+            ViewBag.Name1 = new SelectList(db.Locations.ToList(), "title", "PositionId");
+            ViewBag.Name2 = new SelectList(db.Positions.ToList(), "locationName", "LocationId");
+         
+            //bool isRole = User.IsInRole("Owner");
+            //if (isRole == true)
             // {
             AppUser boss = GetLoggedInUser();
 
-                return View(db.Organizations.Where(e => e.OrganizationId == boss.OrganizationId).SingleOrDefault());
-          //  }
-          //  return RedirectToAction("Index", "Home");
+                return View(db.AppUsers.ToList());
+            //}
+            //return RedirectToAction("Index", "Home");
 
         }
 

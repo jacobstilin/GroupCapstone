@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ShapeShift.Models.Position>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                <button id="EditPosition" data-url='@Url.Action("Edit", "Position", new { id = item.PositionId })'>Edit Position</button>
+                <button id="DeletePosition" data-url='@Url.Action("Delete", "Position", new { id = item.PositionId })'>Delete Position</button>
+
+            </td>
+        </tr>
+        <td>
+            @Html.Partial("~/Views/Position/_EditIndividualPosition.cshtml", Model)
+
+        </td>
+    }
+
+</table>

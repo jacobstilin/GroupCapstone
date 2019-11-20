@@ -3,7 +3,7 @@
 
 
 
-<table id ="3" class="table" data-url='@Url.Action("LoadAllLocations","AppUsers")'>
+<table id="EditLoc" class="table" data-url='@Url.Action("LoadAllLocations","AppUsers")'>
 
     <tr>
         <th>
@@ -34,29 +34,16 @@
             </td>
             <td>
                 <button id="EditLocation" data-url='@Url.Action("Edit","Location", new { id = item.LocationId  })'>Edit Location</button>
-                @Html.ActionLink("Delete Location", "Delete", "Location", new { id = item.LocationId })
+                <button id="DeleteLocation" data-url='@Url.Action("Delete","Location", new { id = item.LocationId  })'>Delete Location</button>
 
             </td>
         </tr>
         <tr>
             <td id="EditLocationField" class="hidden">
-                @Html.Partial("_EditIndividualLocation", item)
+                @Html.Partial("~/Views/Location/_EditIndividualLocation.cshtml", item)
             </td>
         </tr>
     }
-
 </table>
 <script>
-  $('#EditShift').click(function () {
-        evt.preventDefault();
-        evt.stopPropagation();
-        $('#EditShiftField').show();
-        var $detailDiv = $('#EditShiftEmpty'),
-            url = $(this).data('url');
-
-        $.get(url, function (data) {
-            $detailDiv.replaceWith(data);
-        });
-
-    });
-    </script>
+</script>

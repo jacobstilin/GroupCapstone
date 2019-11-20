@@ -1,11 +1,11 @@
 ﻿@model ShapeShift.Models.Shift
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+
+    <div id="12" class="form-horizontal">
         <h4>Shift</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -88,3 +88,17 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    
+    $(document).ready(function () {
+        $(document).click(function ()
+     evt.preventDefault();
+        evt.stopPropagation();
+        var $shiftExchange = $('#12'),
+            url = $(this).data('url');
+        $.get(url, function (data) {
+            $shiftExchange.replaceWith(data);
+        });
+
+    });
+</script>

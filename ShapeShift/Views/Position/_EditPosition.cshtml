@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ShapeShift.Models.Position>
 
 
-    <table id ="2"  class="table" data-url='@Url.Action("LoadAllPositions","AppUsers")''>
+    <table id ="EditPos"  class="table" data-url='@Url.Action("LoadAllPositions","AppUsers")''>
 
         <tr>
 
@@ -29,30 +29,19 @@
                 <td>
 
                     <button id="EditPosition" data-url='@Url.Action("Edit", "Position", new { id = item.PositionId })'>Edit Position</button>
-                    @Html.ActionLink("Delete Position", "Delete", "Position", new { id = item.PositionId })
+                    <button id="DeletePosition" data-url='@Url.Action("Delete", "Position", new { id = item.PositionId })'>Delete Position</button>
 
                 </td>
             </tr>
             <tr>
                 <td id="EditPositionField" class="hidden">
-                    @Html.Partial("_EditIndividualPosition", item)
+                    @Html.Partial("~/Views/Position/_EditIndividualPosition.cshtml", item)
                 </td>
             </tr>
         }
 
     </table>
-
     <script>
-    $('#EditPosition').click(function () {
-        evt.preventDefault();
-        evt.stopPropagation();
-        $('#EditPositionField').show();
-        var $detailDiv = $('#EditPositionEmpty'),
-            url = $(this).data('url');
 
-        $.get(url, function (data) {
-            $detailDiv.replaceWith(data);
-        });
 
-    });
     </script>

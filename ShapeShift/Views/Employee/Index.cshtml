@@ -13,8 +13,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        
         <style>
-          
         </style>
 
     </head>
@@ -43,9 +44,9 @@
                         <li>
                             @Html.ActionLink("Shift Exchange", "ShiftExchange", "AppUsers")
                         </li>
-                        <li>
+                        @*<li>
                             @Html.ActionLink("View Schedule", "GetEmployeeSchedule", "Shift")
-                        </li>
+                        </li>*@
                         <li>
                             @Html.ActionLink("Edit Availability", "EditAvailability", "AppUsers")
 
@@ -63,15 +64,14 @@
 
                 <h3> Current Schedule</h3>
                 <div>
-                    @Html.Partial("_CurrentSchedule", Model)
-
+                    @Html.Partial("~/Views/AppUsers/_CurrentSchedule.cshtml", Model)
                 </div>
           
-                <h3> Availabililty</h3>
+                @*<h3> Availabililty</h3>
                 <div>
-                    @Html.Partial("_ViewAvailability")
+                    @Html.Partial("_ViewMyAvailability.cshtml", Model)
 
-                </div>
+                </div>*@
                 @*//DOnt edit availability here*@
 
 
@@ -91,26 +91,7 @@
                 <p>Footer Text</p>
             </footer>
 
-            <script>
-                $(document).ready(function (data) {
-
-                    var $viewAppUsers = $("#CurrentAppUserDiv")
-                    url = $("#viewAppUsers").data('url');
-
-                    console.log("viewemp");
-
-                    $.get(url, function (data) {
-                        $viewAppUsers.replaceWith(data); //replaces partial with function edit
-                    });
-
-
-
-
-
-                });
-
-
-            </script>
+          
     </body>
     </html>
 

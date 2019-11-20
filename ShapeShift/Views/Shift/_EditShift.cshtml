@@ -1,103 +1,85 @@
 ﻿@model IEnumerable<ShapeShift.Models.Shift>
 
 
-<table id ="1" class="table" data-url='@Url.Action("LoadAllShifts","AppUsers")' >
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.position)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.start)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.end)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.additionalInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        @Html.HiddenFor(modelitem => item.UserId)
-        @Html.HiddenFor(modelitem => item.LocationId)
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.status)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.position)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.start)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.end)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.duration)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.additionalInfo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LocationId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserId)
-    </td>
-  
-    <td>
-
-        <button id="EditShift" data-url='@Url.Action("Edit","AppUsers", new { id = item.ShiftId  })'>Edit</button>
-        <li>@Html.ActionLink("Delete Shift", "Delete", "AppUser", new { id = item.ShiftId })</li>
-        <li>@Html.ActionLink("Add Shift to Exchange", "AddShiftToExchange", "Shift", new { id = item.ShiftId })</li>
-
-    </td>
-</tr>
+    <table id="EditShi" class="table" data-url='@Url.Action("LoadAllShifts","AppUsers")'>
         <tr>
-            <td id="EditShiftField" class="hidden">
-                @Html.Partial("_EditIndividualShift", item)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.end)
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.additionalInfo)
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.LocationId)
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th></th>
         </tr>
-    }
 
-    <tr>
-        <button id="CreateShift" data-url='@Url.Action("Create","Shift")'>Create SHift</button>
-        s
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
 
-</table>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.end)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.additionalInfo)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.LocationId)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+
+                <td>
+
+                    <button id="EditShift" data-url='@Url.Action("EditShift","AppUsers", new { id = item.ShiftId  })'>Edit</button>
+                    <button id="DeleteShift" data-url='@Url.Action("DeleteShift","AppUsers", new { id = item.ShiftId  })'>Delete</button>
+                    <button id="AddShiftToExchange" data-url='@Url.Action("AddShiftToExchange","AppUsers", new { id = item.ShiftId  })'>Add to Shift Exchange</button>
+                </td>
+
+            </tr>
+            <tr >
+                  @Html.Partial("~/Views/Manager/_EditIndividualShift.cshtml", item)
+            </tr>
+
+        }
+
+
+
+    </table>
+
+
 <script>
-    $('#EditShift').click(function () {
-        evt.preventDefault();
-        evt.stopPropagation();
-        $('#EditShiftField').show();
-        var $detailDiv = $('#EditShiftEmpty'),
-            url = $(this).data('url');
+   
 
-        $.get(url, function (data) {
-            $detailDiv.replaceWith(data);
-        });
-
-    });
-
-    $(document).ready(function () {
-
-
-
-    }
 </script>

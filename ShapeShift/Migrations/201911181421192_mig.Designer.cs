@@ -13,7 +13,7 @@ namespace ShapeShift.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201911161752313_mig"; }
+            get { return "201911181421192_mig"; }
         }
         
         string IMigrationMetadata.Source

@@ -15,23 +15,76 @@ namespace ShapeShift.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public void LoadManager()
+        {
+            LoadPendingShifts();
+            LoadAllAppUsers();
+            LoadShifts();
+        }
+        
+        public ActionResult LoadPendingShifts()
+        {
+            try
+            {
+                AppUser appUser = GetLoggedInUser();
+
+                IList<Shift> shift = db.Shifts.Where(e => e.status == 2).ToList();
+                return PartialView("_PendingShifts", shift);
+            }
+            catch
+            {
+                return PartialView("_PendingShifts");
+            }
+        }
+
+        public ActionResult LoadAllAppUsers()
+        {
+            try
+            {
+                AppUser Manager = GetLoggedInUser();
+                IList<AppUser> users = db.AppUsers.Where(e => e.OrganizationId == Manager.OrganizationId).ToList();
+                return PartialView("_EditAppUsers", users);
+            }
+     
+             catch
+            {
+                return PartialView("_EditAppUsers");
+            }
+        }
+
+        public ActionResult LoadShifts()
+        {
+            try
+            {
+                IList<Shift> shift = db.Shifts.ToList();
+                return PartialView("_EditShift", shift);
+            }
+            catch
+            {
+                return PartialView("EditShift");
+            }
+        }
+
         // GET: Manager
         public ActionResult Index()
         {
+            
+            LoadManager();
+         
             ViewBag.Name1 = new SelectList(db.Locations.ToList(), "title", "PositionId");
             ViewBag.Name2 = new SelectList(db.Positions.ToList(), "locationName", "LocationId");
-
             DateTime today = DateTime.Today;
 
-            bool isEmployee = true;
-            bool isRoleManager = User.IsInRole("Admin");
+            //bool isEmployee = true;
+            ////bool isRoleManager = User.IsInRole("Admin");
 
-            if (isEmployee == true)//Provides validation to check if user is an employee
-            {
+            //if (isEmployee == true)//Provides validation to check if user is an employee
+            //{
                 RedirectToAction("Index", "Home");
-            }
+            //}
             AppUser user = GetLoggedInUser();
-            IList<Shift> shifts = db.Shifts.Where(e => e.start >= today).ToList();
+            IList<Shift> shifts = db.Shifts.ToList();
+            //IList<Shift> shifts = db.Shifts.Where(e => e.start >= today).ToList();
             ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
 
             return View(shifts);

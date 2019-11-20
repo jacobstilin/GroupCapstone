@@ -13,51 +13,13 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace ShapeShift.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public void LoadOwner()
-        {
-            LoadAllLocations();
-            LoadAllPositions();
-            LoadAllAppUsers();
-        }
-        public void LoadManager()
-        {
-            LoadAllLocations();
-            LoadAllPositions();
-            LoadAllAppUsers();
-            LoadAllShifts();
-        }
-        public void LoadEmployee()
-        {
-            LoadAllLocations();
-            LoadAllPositions();
-            LoadAllAppUsers();
-        }
-        public ActionResult LoadAllAppUsers()
-        {
-            IList<AppUser> users = db.AppUsers.ToList();
-            return PartialView("_CurrentAppUsers", users);
-        }
-        public ActionResult LoadAllLocations()
-        {
-            IList<Location> locations = db.Locations.ToList();
-            return PartialView("_EditLocation", locations);
-        }
-        public ActionResult LoadAllPositions()
-        {
-            IList<Position> positions = db.Positions.ToList();
-            return PartialView("_EditPosition", positions);
-        }
-        public ActionResult LoadAllShifts()
-        {
-            IList<Shift> shift = db.Shifts.ToList();
-            return PartialView("_EditShift", shift);
-        }
-
+       
+ 
 
 
 
@@ -70,42 +32,67 @@ namespace ShapeShift.Controllers
 
 
         }
-
-
-
-        // In this method and the corresponding view we need to make the status a readable string and convert the 
-        // UserId to the name of the person or something like Admin if it's posted by a manager.
-        public ActionResult ShiftExchange()
+        public ActionResult LoadAllAvailableShifts(IList<Shift> shifts)
         {
-            AppUser user = GetLoggedInUser();
-            bool isEmployee = User.IsInRole("Employee");
-            bool isRoleManager = User.IsInRole("Admin");
+           IList<Shift> availableShifts =  db.Shifts.Where(e => e.status == 1).ToList();
+            return PartialView("_ViewAllAvailableShifts.cshtml", availableShifts);
+        }
+        public ActionResult LoadMyShifts()
+        {
+            IList<Shift> myShifts = db.Shifts.Where(e => e.status == 3).ToList();
+            return PartialView("_MyShifts.cshtml", myShifts);
+        }
 
-            if (isEmployee == true)//Provides validation to check if user is an employee
+
+        public ActionResult RequestShift(int id)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+            Shift shift = db.Shifts.Where(e => e.ShiftId == id).SingleOrDefault();
+
+            shift.status = 2;
+            shift.User = appUser;
+            shift.ShiftId = id;
+            db.SaveChanges();
+            IList<Shift> refreshShift = db.Shifts.Where(e => e.status == 1).ToList();
+
+            return PartialView("_ViewAllAvailableShifts", refreshShift);
+        }
+
+            // In this method and the corresponding view we need to make the status a readable string and convert the 
+            // UserId to the name of the person or something like Admin if it's posted by a manager.
+            
+            public ActionResult ShiftExchange()
             {
-                IList<Shift> employeeShifts = db.Shifts.Where(s => s.UserId == user.UserId).ToList(); //shows all shifts no matter what positions
-                IList<Position> employeePositions = db.Positions.Where(e => e.UserId == user.UserId).ToList(); 
-                
-                ViewBag.Name1 = new SelectList(db.Positions.Where(u => !u.title.Contains("")).ToList(), "title", "PositionId");
-                ViewBag.Name2 = new SelectList(db.Locations.Where(u => !u.locationName.Contains("")).ToList(), "locationName", "LocationId");
-                return View(employeeShifts);
-               
-                //no matter who is in the shift exchange they should have the ability too 
-            }
+                AppUser user = GetLoggedInUser();
+                //bool isEmployee = User.IsInRole("Employee");
+                //bool isRoleManager = User.IsInRole("Admin");
 
-            if (isRoleManager == true)//Checks to see if user is in the role of manager 
-            {
+                //if (isEmployee == true)//Provides validation to check if user is an employee
+                //{
+                //call calls function that loads viewallavailableshifts with all shifts
+                //    IList<Shift> employeeShifts = db.Shifts.Where(s => s.UserId == user.UserId).ToList(); //shows all shifts no matter what positions
+                //    IList<Position> employeePositions = db.Positions.Where(e => e.UserId == user.UserId).ToList(); 
 
-                IList<Shift> allShifts = db.Shifts.Where(e => e.UserId == user.UserId).ToList();
+                //    ViewBag.Name1 = new SelectList(db.Positions.Where(u => !u.title.Contains("")).ToList(), "title", "PositionId");
+                //    ViewBag.Name2 = new SelectList(db.Locations.Where(u => !u.locationName.Contains("")).ToList(), "locationName", "LocationId");
+                //    return View(employeeShifts);
+
+                //    //no matter who is in the shift exchange they should have the ability too 
+                //}
+
+                //if (isRoleManager == true)//Checks to see if user is in the role of manager 
+                //{
+                IList<Shift> allShifts = db.Shifts.ToList();
                 ViewBag.Name1 = new SelectList(db.Positions.Where(u => !u.title.Contains("")).ToList(), "title", "PositionId");
                 ViewBag.Name2 = new SelectList(db.Locations.Where(u => !u.locationName.Contains("")).ToList(), "locationName", "LocationId");
 
                 return View(allShifts);
 
+                //}
+
+                //return RedirectToAction("Index", "Home");
             }
-    
-            return RedirectToAction("Index", "Home");
-        }
         public ActionResult AddShift()
         {
             //check user role then return avaiability partial view and status of three in post
@@ -122,18 +109,32 @@ namespace ShapeShift.Controllers
 
         public ActionResult EditShift(int shiftId)
         {
+            ViewBag.Name1 = new SelectList(db.Positions.Where(u => !u.title.Contains("")).ToList(), "title", "PositionId");
+            ViewBag.Name2 = new SelectList(db.Locations.Where(u => !u.locationName.Contains("")).ToList(), "locationName", "LocationId");
+            Shift shift = db.Shifts.Where(e=> e.ShiftId == shiftId).SingleOrDefault();
             // when clicking accept shift; if user is Employee then change status to 3, and add to database.  When manager loads page it pop up pending shifts div, user ___ has requested shift---, with dynamically added buttons
             //manager cannot accept shifts, in shift exchange in a hidden div only has pending shifts from pending shift partial view, when they accept it changes status to 2 and adds to the db, and clears pending shifts view
-            return PartialView();
+            return PartialView("~/Views/Manager/_EditIndividualShift.cshtml", shift);
 
 
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditShift(string userId, string code)
+        public ActionResult EditShift(int id, Shift shift)
         {
-            return PartialView();
-
+            AppUser appUser = new AppUser();
+            appUser = GetLoggedInUser();
+            Shift newShift = db.Shifts.Where(e => e.ShiftId == id).SingleOrDefault();
+            newShift.position = shift.position;
+            newShift.start = shift.start;
+            newShift.end = shift.end;
+            newShift.additionalInfo = shift.additionalInfo;
+            newShift.UserId = appUser.UserId;
+            newShift.status = shift.status;
+            newShift.LocationId = shift.LocationId;
+            db.SaveChanges();
+            return View();
+            //return PartialView("~/Views/Shift/_EditShift.cshtml", db.Shifts.ToList());
         }
         //TWO DIFFERENT PARTIAL VIEWS:: ONE FOR THE AVAILABLE SHIFTS AND OTHER FOR YOUR SHIFTS 
         public ActionResult ViewShifts(string position)
@@ -162,10 +163,15 @@ namespace ShapeShift.Controllers
         }
 
 
-        public async Task<ActionResult> DeleteShift(string userId, string code)
+        public ActionResult DeleteShift(int Id)
         {
-            return PartialView();
+            Shift shift = new Shift();
+           shift = db.Shifts.Where(e => e.ShiftId == Id).SingleOrDefault();
+            db.Shifts.Remove(shift);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Manager");
 
+        
         }
 
         public async Task<ActionResult> DeletetShift(string userId, string code)
@@ -199,6 +205,8 @@ namespace ShapeShift.Controllers
         // GET: AppUsers
         public ActionResult Index()
         {
+
+            //if user = Role send to their home index
             return View();
         }
 
@@ -237,6 +245,7 @@ namespace ShapeShift.Controllers
         {
             
             
+
             return View();
         }
 
@@ -246,6 +255,7 @@ namespace ShapeShift.Controllers
         {
             try
             {
+
                 // TODO: Add update logic here
 
                 return RedirectToAction("Index");
@@ -277,6 +287,7 @@ namespace ShapeShift.Controllers
         {
             AppUser appUser = GetLoggedInUser();
             ICollection<Availability> availability = db.Availabilities.Where(u => u.UserId == appUser.UserId).ToList();
+
             return View(availability);
         }
 
@@ -335,9 +346,79 @@ namespace ShapeShift.Controllers
             return View();
         }
 
+        public ActionResult AddMyShiftToExchange(int shiftId)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+            Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
 
+            shift.status = 1;
+            shift.User = null;
+            shift.ShiftId = shiftId;
+            db.SaveChanges();
+            return PartialView("_MyShift", db.Shifts.Where(e => e.status == 3).ToList());
+
+        }
+        public ActionResult AddShiftToExchange(int shiftId)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+            Shift shift = db.Shifts.Where(e => e.ShiftId == shiftId).SingleOrDefault();
+
+            shift.status = 1;
+            shift.User = null;
+            shift.ShiftId = shiftId;
+            db.SaveChanges();
+            return PartialView("_EditShift", db.Shifts.ToList());
+
+        }
+
+        [HttpPost]
+        public ActionResult AddShiftToExchange(Shift shift)
+        {
+            AppUser appUser = GetLoggedInUser();
+            DateTime today = DateTime.Today;
+
+            return View(db.Shifts.Where(s => s.UserId == appUser.UserId).ToList());
+
+        }
+
+
+        public ActionResult EditUser(int id)
+        {
+            AppUser appUser = db.AppUsers.Where(e => e.UserId == id).SingleOrDefault();
+            // when clicking accept shift; if user is Employee then change status to 3, and add to database.  When manager loads page it pop up pending shifts div, user ___ has requested shift---, with dynamically added buttons
+            //manager cannot accept shifts, in shift exchange in a hidden div only has pending shifts from pending shift partial view, when they accept it changes status to 2 and adds to the db, and clears pending shifts view
+            return View(appUser);
+
+
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(int id, AppUser user)
+        {
+            AppUser appUser = new AppUser();
+            appUser = GetLoggedInUser();
+            AppUser new1 = db.AppUsers.Where(e => e.UserId == id).SingleOrDefault();
+            new1.UserId = id;
+            new1.Positions = user.Positions;
+            new1.phoneNumber = user.phoneNumber;
+            new1.OrganizationId = appUser.OrganizationId;
+            new1.Organization = appUser.Organization;
+            new1.middleName = user.middleName;
+            new1.Location = user.Location;
+            new1.lastName = user.lastName;
+            new1.firstName = user.firstName;
+            new1.Availability = user.Availability;
+            new1.ApplicationUser = user.ApplicationUser;
+            new1.ApplicationId = user.ApplicationId;
+            db.SaveChanges();
+
+            return PartialView("_EditShift.cshtml", db.Shifts.ToList());
+
+        }
         // GET: AppUsers/Delete/5
-      
+
         public ActionResult DeleteUser(int? id)
         {
             var theId = User.Identity.GetUserId();
@@ -346,9 +427,12 @@ namespace ShapeShift.Controllers
             if (isRoleOwner == true)
             {
                 AppUser appUser = db.AppUsers.Find(id);
-                return View();
+                db.AppUsers.Remove(appUser);
+                db.SaveChanges();
+                return PartialView("_CurrentAppUsers", db.AppUsers.ToList());
+
             }
-            return RedirectToAction("Index", "Home");
+            return PartialView("_CurrentAppUsers", db.AppUsers.ToList());
         }
         // POST: AppUsers/Delete/
         // to be used in view

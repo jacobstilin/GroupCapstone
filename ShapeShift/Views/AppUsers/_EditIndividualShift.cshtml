@@ -2,9 +2,9 @@
 
 
 
-    @using (Html.BeginForm("EditShift", "AppUsers", new { id = Model.ShiftId}, FormMethod.Post, null))
-    {
-        @Html.AntiForgeryToken()
+@using (Html.BeginForm("EditShift", "AppUsers", FormMethod.Post, new { id = "~/Controllers/AppUsersController.cs" }))
+{
+    @Html.AntiForgeryToken()
     <div id="3" class="form-horizontal" hidden>
         <h4>Shift</h4>
         <hr />
@@ -30,9 +30,9 @@
             </div>
         </div>
 
-        @*<div class="col-md-3">
+        <div class="col-md-3">
             @Html.Label("Locations", new { @class = "col-md-2 control-label" })
-            @Html.DropDownList("Name")
+            @*@Html.DropDownList("Name")*@
             @Html.DropDownList("locationName", (IEnumerable
                 <SelectListItem>)ViewBag.Name1)
 
@@ -40,10 +40,10 @@
 
         @Html.Label("Positions", new { @class = "col-md-2 control-label" })
         <div class="col-md-3">
-            @Html.DropDownList("Name")
+            @*@Html.DropDownList("Name")*@
             @Html.DropDownList("title", (IEnumerable
                    <SelectListItem>)ViewBag.Name2)
-        </div>*@
+        </div>
 
 
         <div class="form-group">
@@ -87,28 +87,28 @@
         </div>
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                @*<li><a href="javascript:document.getElementById('EditIndividualShiftForm').submit()">Save</a></li>*@
-
-                <input data-url='@Url.Action("EditShift","AppUsers", new { id = Model.ShiftId  })' type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-
 
 
     </div>
 
 
 
-   
-    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @*<li><a href="javascript:document.getElementById('EditIndividualShiftForm').submit()">Save</a></li>*@
 
-    
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 <script>
 
 

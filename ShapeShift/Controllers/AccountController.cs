@@ -183,7 +183,6 @@ namespace ShapeShift.Controllers
                     Organization organization = new Organization();
                     
                     db.Organizations.Add(organization);
-                    db.SaveChanges();
                     AppUser appUser = new AppUser();
                     appUser.OrganizationId = organization.OrganizationId;
                     appUser.ApplicationId = user.Id;

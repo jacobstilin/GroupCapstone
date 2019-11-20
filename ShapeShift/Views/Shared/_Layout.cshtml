@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Make-Shift</title>
     
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -74,97 +74,195 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    
+
+    <script>
+        $(document).ready(function () {
+            $('#EditShift').click(function (evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                console.log("looo");
+                $('#3').show();
+                var $detailDiv = $('#EditShi'),
+                    url = $(this).data('url');
+                $.get(url, function (data) {
+                    $detailDiv.replaceWith(data);
+                });
+            });
+
+        $('#EditPosition').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            $('#EditPositionEmpty').show();
+            var $detailDiv = $('#EditPos'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+        });
    
-    <script>
-   $(document).ready(function () {
-       console.log("hello");
-        evt.preventDefault();
-       evt.stopPropagation();
-       var $shiftExchange = $('#detailsDiv'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $shiftExchange.replaceWith(data);
-       });
+        $('#EditLocation').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            $('#EditLocationField').show();
+            var $detailDiv = $('#EdiLoc'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
 
-        evt.preventDefault();
-       evt.stopPropagation();
-       var $shiftExchange = $('#detailsDiv'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $shiftExchange.replaceWith(data);
-       });
-        evt.preventDefault();
-       evt.stopPropagation();
-       var $shiftExchange = $('#detailsDiv'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $shiftExchange.replaceWith(data);
-       });
-        evt.preventDefault();
-       evt.stopPropagation();
-       var $shiftExchange = $('#detailsDiv'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $shiftExchange.replaceWith(data);
-       });
 
-   }
-   $('glyphicon-import').on('click', function (evt) {
-       evt.preventDefault();
-       evt.stopPropagation();
-       var $shiftExchange = $('#detailsDiv'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $shiftExchange.replaceWith(data);
-       });
-   });
-    </script>
-    <script>
-               $(document).ready(function (data) {
-                   var $viewAppUsers = $("#CurrentAppUserDiv")
-                   url = $("#viewAppUsers").data('url');
-                   console.log("viewemp");
-                   $.get(url, function (data) {
-                       $viewAppUsers.replaceWith(data); //replaces partial with function edit
-                   });
+        });
+
+         $('#DeleteLocation').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var $detailDiv = $('#EditLoc'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
                });
-    </script>
-    <script>
- $('#EditShift').click(function () {
-       evt.preventDefault();
-       evt.stopPropagation();
-       $('#EditShiftField').show();
-       var $detailDiv = $('#EditShiftEmpty'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $detailDiv.replaceWith(data);
-       });
-   });
-    </script>
-    <script>
-   $('#EditPosition').click(function () {
-       evt.preventDefault();
-       evt.stopPropagation();
-       $('#EditPositionField').show();
-       var $detailDiv = $('#EditPositionEmpty'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $detailDiv.replaceWith(data);
-       });
-   });
-    </script>
-    <script>
-   $('#EditShift').click(function () {
-       evt.preventDefault();
-       evt.stopPropagation();
-       $('#EditShiftField').show();
-       var $detailDiv = $('#EditShiftEmpty'),
-           url = $(this).data('url');
-       $.get(url, function (data) {
-           $detailDiv.replaceWith(data);
-       });
-   });
+
+               $('#DeletePosition').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var $detailDiv = $('#EditPos'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+                     });
+
+
+            $('#DeleteShift').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var $detailDiv = $('#EditShi'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+
+            });
+
+        
+            $('#AddShiftToExchange').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var $detailDiv = $('#EditShi'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+
+            });
+
+            
+     $('#RequestShift').click(function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        var $detailDiv = $('#EdiShi'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.replaceWith(data);
+        });
+
+        });
+        
+            $('#PopulateMyShifts').click(function (evt) {
+            evt.preventDefault();
+                evt.stopPropagation();
+                $('#MyShi').show();
+            var $detailDiv = $('#MyShi'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+
+             });
+
+        
+            $('#PopulateAvailShifts').click(function (evt) {
+            evt.preventDefault();
+                evt.stopPropagation();
+                $('#ViewShi').show();
+            var $detailDiv = $('#ViewShi'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+
+            });
+        
+         $('#AcceptShift').click(function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        var $detailDiv = $('#EdiShi'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.replaceWith(data);
+        });
+
+    });
+
+     $('#RejectShift').click(function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        var $detailDiv = $('#EdiShi'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.replaceWith(data);
+        });
+
+        });
+
+                $('#EditStaff').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var $detailDiv = $('#1'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+
+
+        });
+
+         $('#DeleteStaff').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var $detailDiv = $('#1'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+               });
+
+
+
+
+
+
+
+
+
+
+
+
+                });
+
+     
+
+
+
+
+
+
+
+
     </script>
 </body>
 </html>

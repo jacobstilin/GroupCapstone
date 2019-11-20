@@ -76,7 +76,7 @@ namespace ShapeShift.Controllers
             ViewBag.Name2 = new SelectList(db.Positions.ToList(), "locationName", "LocationId");
             Position newPosition = db.Positions.FirstOrDefault(p => p.PositionId == id);
 
-            return PartialView("_EditIndividualPosition", newPosition);
+            return PartialView("~/Views/Position/_EditIndividualPosition.cshtml", newPosition);
 
         }
 

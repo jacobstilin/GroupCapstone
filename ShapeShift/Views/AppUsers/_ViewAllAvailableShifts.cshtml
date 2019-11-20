@@ -1,85 +1,72 @@
-﻿@model ShapeShift.Models.Shift
+﻿@model IEnumerable<ShapeShift.Models.Shift>
 
-<div id="4" data-url='@Url.Action("LoadAllAvailability","AppUsers")'>
-    <h4>Available Shifts</h4>
-    <hr />
-    @Html.HiddenFor(model => model.LocationId)
-    @Html.HiddenFor(model => model.status)
-    @Html.HiddenFor(model => model.UserId)
-    <dl class="dl-horizontal">
-        <dt>
+
+<table id ="ViewShi"class="table" hidden>
+    <tr>
+        <th>
             @Html.DisplayNameFor(model => model.status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.position)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.position)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.start)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.start)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.end)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.end)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.duration)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.duration)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.additionalInfo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.additionalInfo)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.LocationId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LocationId)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShiftId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.UserId)
-        </dt>
+        </th>
+        <th></th>
+    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dd>
-      
-            <li>@Html.ActionLink("Request Shift", "RequestShift", "Shift", new { id = Model.ShiftId })</li>
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.position)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.start)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.end)
+    </td>
+    <td hidden>
+        @Html.DisplayFor(modelItem => item.duration)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.additionalInfo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LocationId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ShiftId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+    <td>
+        <button id="RequestShift" data-url='@Url.Action("RequestShift", "AppUsers", item.ShiftId)'>Populate</button>
 
+    </td>
+</tr>
+}
 
-        </dd>
-
-    </dl>
-</div>
-
-
-
-
+</table>

@@ -17,8 +17,44 @@ namespace ShapeShift.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
 
+        //Employee LOAD
+        public ActionResult LoadMyShifts()
+        {
+            try
+            {
+                AppUser appUser = GetLoggedInUser();
 
-     
+                IList<Shift> shift = db.Shifts.Where(e => e.UserId == appUser.UserId).ToList();
+                return PartialView("_CurrentSchedule.cshtml", shift);
+            }
+            catch
+            {
+                return PartialView("_CurrentSchedule.cshtml");
+            }
+        }
+
+        public ActionResult LoadMyAvailability()
+        {
+            try
+            {
+                AppUser appUser = GetLoggedInUser();
+
+                IList<Availability> availability = db.Availabilities.Where(e => e.UserId == appUser.UserId).ToList();
+                return PartialView("_ViewMyAvailability.cshtml", availability);
+            }
+
+            catch
+            {
+                return PartialView("_ViewMyAvailability.cshtml");
+            }
+        }
+
+        public void LoadEmployee()
+        {
+            LoadMyShifts();
+            LoadMyAvailability();
+            
+        }
 
         // GET: Employee
         public AppUser GetLoggedInUser()//Gets current user
@@ -30,8 +66,20 @@ namespace ShapeShift.Controllers
 
         public ActionResult Index()//shows a list of the shifts attached to this employees id 
             {
+            LoadEmployee();
             DateTime today = DateTime.Today;
-
+            Shift newShift = new Shift();
+            Availability availability = new Availability();
+            Shift newShift1 = new Shift();
+            Availability availability1 = new Availability();
+            db.Availabilities.Add(availability);
+            db.Availabilities.Add(availability1);
+            db.Shifts.Add(newShift);
+            db.Shifts.Add(newShift1);
+            ViewBag.Name1 = new SelectList(db.Locations.ToList(), "title", "PositionId");
+            ViewBag.Name2 = new SelectList(db.Positions.ToList(), "locationName", "LocationId");
+            ViewBag.Name4 = new SelectList(db.Shifts.ToList(), "ShiftId", "ShiftId");
+            ViewBag.Name5 = new SelectList(db.Availabilities.ToList(), "Id", "Availability");
             IList<Shift> shifts = db.Shifts.Where(e => e.start >= today).ToList();
 
             AppUser user = GetLoggedInUser();
@@ -80,7 +128,7 @@ namespace ShapeShift.Controllers
             }
             catch
             {
-                return PartialView();
+                return View();
 
             }
         }
@@ -102,6 +150,16 @@ namespace ShapeShift.Controllers
         //}
 
         // GET: Employee/Delete/5
+        public ActionResult EditEmployee(int id)//Allows you to edit the employees information 
+        {
+           AppUser employee = db.AppUsers.Where(e => e.UserId == id).SingleOrDefault();
+                return PartialView();
+            
+        }
+
+      
+
+
         public ActionResult DeleteEmployee(int id)
         {
             bool isRoleOwner = User.IsInRole("Owner");

@@ -1,11 +1,11 @@
 ﻿@model ShapeShift.Models.Location
 
 
-@using (Html.BeginForm("Edit", "Location", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Location", FormMethod.Post,  new { id = "EditIndividualLocationForm" } ))
 {
     @Html.AntiForgeryToken()
-    
-    <div id="EditLocationEmpty" class="form-horizontal">
+
+    <div id="5" class="form-horizontal">
         <h4>Location</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -49,16 +49,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <li><a href="javascript:document.getElementById('EditIndividualLocationForm').submit()">Save</a></li>
+                @*<input type="submit" value="Save" class="btn btn-default" />*@
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+

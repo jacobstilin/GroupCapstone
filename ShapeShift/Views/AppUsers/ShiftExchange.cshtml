@@ -29,45 +29,49 @@
         <h1>Shift Exchange</h1>
         <div class="container-fluid">
             <div class="row content">
+                <div class="col-sm-3 sidenav">
+                    @for (int i = 0; i < 10; i++)
+                    {
+                        <br />
 
-                <div class="col-sm-6">
-                    @Html.Partial("_ViewAllAvailableShifts", Model)
+                    }
+
+                    <ul class="nav nav-pills nav-stacked">
+
+
+                        <li> @Html.ActionLink("Home", "Index", "AppUsers") </li>
+
+                    </ul><br>
+
                 </div>
 
-                <div class="col-sm-6">
-                    @Html.Partial("_MyShifts", Model) @*//on page load calls view app users shifts*@
+                <div class="col-sm-9">
+                    <h2>Available Shifts</h2>
+                    @Html.Partial("~/Views/AppUsers/_ViewAllAvailableShifts.cshtml", Model)
+                    <button id="PopulateAvailShifts" data-url='@Url.Action("LoadAllAvailableShifts","AppUsers", Model)'>Populate</button>
 
+                    <h2>My Shifts</h2>
+
+                    @Html.Partial("~/Views/AppUsers/_MyShifts.cshtml", Model) @*//on page load calls view app users shifts*@
+                    <button id="PopulateMyShifts" data-url='@Url.Action("LoadMyShifts", "AppUsers", Model)'>Populate</button>
 
                 </div>
 
 
             </div>
-     
+
 
         </div>
-
-    
 
         <footer class="container-fluid">
             <p>Make Shift</p>
         </footer>
 
         <script>
-            $('#EditShift').click(function () {
-                evt.preventDefault();
-                evt.stopPropagation();
-                $('#EditShiftField').show();
-                var $detailDiv = $('#EditShiftEmpty'),
-                    url = $(this).data('url');
 
-                $.get(url, function (data) {
-                    $detailDiv.replaceWith(data);
-                });
-
-            });
 
         </script>
-</body>
+    </body>
 </html>
 
 

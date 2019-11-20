@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ShapeShift.Models.Availability>
+
+@Url.Action("LoadMyAvailability", "AppUsers")
+
+<table class="table" data-url= '@Url.Action("LoadMyAvailability", "AppUsers")'
+>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.weekday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.end)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.weekday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.end)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+
+    $(document).ready(function () {
+        console.log("eij");
+        evt.preventDefault();
+        evt.stopPropagation();
+        var $shiftExchange = $('#7'),
+            url = $(this).data('url');
+        $.get(url, function (data) {
+            $shiftExchange.replaceWith(data);
+        });
+
+    });
+</script>

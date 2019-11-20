@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<ShapeShift.Models.Shift>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+
+<tabl id="2" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.status)
@@ -17,7 +15,7 @@
         <th>
             @Html.DisplayNameFor(model => model.end)
         </th>
-        <th>
+        <th hidden>
             @Html.DisplayNameFor(model => model.duration)
         </th>
         <th>
@@ -47,21 +45,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.end)
             </td>
-            <td>
+            <td hidden>
                 @Html.DisplayFor(modelItem => item.duration)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.additionalInfo)
             </td>
-            <td>
+            <td hidden>
                 @Html.DisplayFor(modelItem => item.LocationId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
-                <li>@Html.ActionLink("Accept Shift", "ApproveShift", "AppUser", new { id = item.ShiftId })</li>
-                <li>@Html.ActionLink("Reject Shift", "RejectShift", "AppUser", new { id = item.ShiftId })</li>
+
+                <button id "AcceptShift" data-url='@Url.Action("ApproveShift","Shift", new { id = item.ShiftId  })'>Accept </button>
+                <button id="RejectShift" data-url='@Url.Action("RejectShift","Shift", new { id = item.ShiftId  })'>Reject </button>
+     
 
             </td>
         </tr>
@@ -69,5 +69,9 @@
 
 </table>
 
-@*<button> Accept Shift</button> //When a employee tries to accept an available shift, or post his shift then we Edit SHift, and changes status to 3, change appuser requesting, on AppUser controller return partial view Shift Schedule
-<button> Reject Shift</button> //When a employee tries to accept an available shift or post his shift then we Edit Shift and change status to 1 as not accepted and AppUser to null;, on AppUser controller return partial view Shift Schedule*@
+
+<script>
+   
+
+
+</script>

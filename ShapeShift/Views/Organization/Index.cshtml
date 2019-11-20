@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model ShapeShift.Models.Organization
+@model IEnumerable<ShapeShift.Models.AppUser>
 
 @{
     ViewBag.Title = "Index";
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    
+
 </head>
 <body>
     <h1>Organization Home Page</h1>
@@ -30,16 +30,16 @@
 
                 }
 
-            <ul class="nav nav-pills nav-stacked">
+                <ul class="nav nav-pills nav-stacked">
 
-                <li>@Html.ActionLink("Add Staff", "RegisterEmployee", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                <li>@Html.ActionLink("Add Location", "Create", "Location")</li>
-                <li>@Html.ActionLink("Add Position", "Create", "Position")</li>
+                    <li>@Html.ActionLink("Add Staff", "RegisterEmployee", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>@Html.ActionLink("Add Location", "Create", "Location")</li>
+                    <li>@Html.ActionLink("Add Position", "Create", "Position")</li>
 
 
-                @*<li><a href="#section2">Add Location</a></li>
-        <li><a href="#section3">Edit Profile</a></li>*@
-            </ul><br>
+                    @*<li><a href="#section2">Add Location</a></li>
+                        <li><a href="#section3">Edit Profile</a></li>*@
+                </ul><br>
 
             </div>
 
@@ -49,25 +49,22 @@
                 <h3> Current Staff</h3>
                 <div>
 
-                    @Html.Partial("_CurrentAppUsers", null)  @*//send to another page to edit*@
-
+                    @Html.Partial("_CurrentAppUsers", Model)  @*//send to another page to edit*@
                 </div>
 
-                <h3> Current Branch Locations</h3>
+                @*<h3> Current Branch Locations</h3>
 
-                <div>
+                    <div>
+                        @Html.Partial("~/Views/Location/_EditLocation.cshtml", Model.Location)
 
-                    @Html.Partial("_EditLocation", null)
-
-                </div>
+                    </div>*@
 
 
-                <h3> All Positions</h3>
-                <div>
+                @*<h3> All Positions</h3>
+                    <div ="hidden">
+                        @Html.Partial("~/Views/Position/_EditPosition.cshtml")
 
-                    @Html.Partial("_EditPosition", null)
-
-                </div>
+                    </div>*@
 
 
 
@@ -76,24 +73,24 @@
 
 
 
-
-                @*</div>*@
 
             </div>
 
-    <footer class="container-fluid">
-        <p>MakeShift</p>
-    </footer>
+        </div>
 
-    <script>
+        <footer class="container-fluid">
+            <p>MakeShift</p>
+        </footer>
 
-    
-
-
+        <script>
 
 
 
 
-    </script>
+
+
+
+
+        </script>
 </body>
 </html>
