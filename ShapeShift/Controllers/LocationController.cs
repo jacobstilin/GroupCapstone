@@ -1,4 +1,5 @@
-﻿using ShapeShift.Models;
+﻿using Microsoft.AspNet.Identity;
+using ShapeShift.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,12 @@ namespace ShapeShift.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
+        public AppUser GetLoggedInUser()//Gets current user
+        {
+            string currentId = User.Identity.GetUserId();
+            AppUser appUser = db.AppUsers.FirstOrDefault(u => u.ApplicationId == currentId);
+            return (appUser);
+        }
 
         // GET: Location
         public ActionResult Index()
@@ -36,7 +42,7 @@ namespace ShapeShift.Controllers
         [HttpPost]
         public ActionResult Create(Location location)
         {
-            AppUser boss = new AppUser();
+            AppUser boss = GetLoggedInUser();
             try
             {
 
@@ -44,8 +50,8 @@ namespace ShapeShift.Controllers
                 Location newLocation = new Location();
                 
                 newLocation.locationName = location.locationName;
-                newLocation.LocationId = location.LocationId;
-                newLocation.UserId = location.UserId;
+                newLocation.AddressId = 1;
+                newLocation.UserId = boss.UserId;
                 db.Locations.Add(newLocation);
                 //boss.Location.Add(newLocation);
                 db.SaveChanges();

@@ -128,7 +128,7 @@ namespace ShapeShift.Controllers
             return View(); 
         }
         [HttpPost]
-         public ActionResult GroupMessage(TextMessage textMessage)
+         public ActionResult SendGroupText(TextMessage textMessage)
         {
              if(textMessage.Position != null)
             {

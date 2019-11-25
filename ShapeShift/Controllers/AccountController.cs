@@ -238,7 +238,7 @@ namespace ShapeShift.Controllers
             if (isRole == true)
             {
                 ViewBag.Name1 = new SelectList(db.Roles.Where(u => !u.Name.Contains("Owner")).ToList(), "Name", "Name");
-            
+
                 ViewBag.displayMenu = "Owner";
                 return View();
             }

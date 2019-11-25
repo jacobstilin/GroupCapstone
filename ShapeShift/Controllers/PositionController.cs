@@ -56,7 +56,7 @@ namespace ShapeShift.Controllers
                 Position newPosition = new Position();
                 AppUser appUser = GetLoggedInUser();
                 newPosition.title = position.title;
-                newPosition.PositionId = position.PositionId;
+                newPosition.UserId = appUser.UserId;
                 
 
                 db.Positions.Add(newPosition);

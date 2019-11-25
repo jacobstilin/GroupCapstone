@@ -123,7 +123,7 @@ namespace ShapeShift.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Organization", "Index");
+                return RedirectToAction("Index", "Organization");
 
             }
             catch

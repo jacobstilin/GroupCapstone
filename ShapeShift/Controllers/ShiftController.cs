@@ -136,8 +136,8 @@ public AppUser GetLoggedInUser()
             }
             if (isRoleManager == true)
             {
-                var ownerRole = db.Roles.Where(e => e.Name == "Owner").SingleOrDefault();
-                var ownerOfCompany = db.Users.Where(e => e.Roles == ownerRole).SingleOrDefault();
+                var ownerRole = db.Roles.FirstOrDefault(e => e.Name == "Owner");
+                var ownerOfCompany = db.Users.FirstOrDefault(e => e.Roles == ownerRole);
                 AppUser theBoss = db.AppUsers.Where(e => e.ApplicationId == ownerOfCompany.Id).SingleOrDefault();
                 var ownerPositions = theBoss.Positions.ToList();
                 var ownerLocations = db.Locations.ToList();

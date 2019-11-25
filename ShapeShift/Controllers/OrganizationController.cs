@@ -60,8 +60,8 @@ namespace ShapeShift.Controllers
             //if (isRole == true)
             // {
             AppUser boss = GetLoggedInUser();
-
-                return View(db.AppUsers.ToList());
+            List<AppUser> appUsers = db.AppUsers.Where(a => a.OrganizationId == boss.OrganizationId && a.UserId != boss.UserId).ToList();
+                return View(appUsers);
             //}
             //return RedirectToAction("Index", "Home");
 
