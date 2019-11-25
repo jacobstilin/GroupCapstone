@@ -211,13 +211,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911201629239_new.cs" />
-    <Compile Include="Migrations\201911201629239_new.Designer.cs">
-      <DependentUpon>201911201629239_new.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911212022202_intial.cs" />
-    <Compile Include="Migrations\201911212022202_intial.Designer.cs">
-      <DependentUpon>201911212022202_intial.cs</DependentUpon>
+    <Compile Include="Migrations\201911251401164_mig30.cs" />
+    <Compile Include="Migrations\201911251401164_mig30.Designer.cs">
+      <DependentUpon>201911251401164_mig30.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -335,6 +331,7 @@
     <Content Include="Views\AppUsers\_EditIndividualShift.cshtml" />
     <Content Include="Views\Position\Edit.cshtml" />
     <Content Include="Views\AppUsers\Edit.cshtml" />
+    <Content Include="Views\Manager\GroupMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,11 +352,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911201629239_new.resx">
-      <DependentUpon>201911201629239_new.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911212022202_intial.resx">
-      <DependentUpon>201911212022202_intial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911251401164_mig30.resx">
+      <DependentUpon>201911251401164_mig30.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

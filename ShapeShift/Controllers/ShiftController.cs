@@ -126,9 +126,7 @@ public AppUser GetLoggedInUser()
             ViewBag.displayMenu = "Employee";
             if (isRoleOwner == true)
             {
-                var ownerRole = db.Roles.Where(e => e.Name == "Owner").SingleOrDefault();
-                var ownerOfCompany = db.Users.Where(e => e.Roles == ownerRole).SingleOrDefault();
-                AppUser theBoss = db.AppUsers.Where(e => e.ApplicationId == ownerOfCompany.Id).SingleOrDefault();
+                AppUser theBoss = db.AppUsers.Where(e => e.UserId == 19).SingleOrDefault();
                 var ownerPositions = theBoss.Positions.ToList();
                 var ownerLocations = db.Locations.ToList();
                 ViewBag.Name1 = new SelectList(ownerPositions, "title", "PositionId");
@@ -136,11 +134,11 @@ public AppUser GetLoggedInUser()
             }
             if (isRoleManager == true)
             {
-                var ownerRole = db.Roles.FirstOrDefault(e => e.Name == "Owner");
-                var ownerOfCompany = db.Users.FirstOrDefault(e => e.Roles == ownerRole);
-                AppUser theBoss = db.AppUsers.Where(e => e.ApplicationId == ownerOfCompany.Id).SingleOrDefault();
-                var ownerPositions = theBoss.Positions.ToList();
-                var ownerLocations = db.Locations.ToList();
+                // This method must be reworked to show actual owner appuser
+                AppUser theBoss = db.AppUsers.Where(e => e.UserId == 19).SingleOrDefault();
+                List<Position> ownerPositions = db.Positions.Where(p => p.UserId == theBoss.UserId).ToList();
+                List<Location> ownerLocations = db.Locations.Where(p => p.UserId == theBoss.UserId).ToList();
+                
                 IList<AppUser> AppUsers = db.AppUsers.Where(e => e.OrganizationId == theBoss.OrganizationId).ToList();
                 ViewBag.Name1 = new SelectList(ownerPositions, "title", "PositionId");
                 ViewBag.Name2 = new SelectList(ownerLocations, "locationName", "LocationId");

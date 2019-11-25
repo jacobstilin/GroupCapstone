@@ -50,7 +50,7 @@ namespace ShapeShift.Controllers
                 Location newLocation = new Location();
                 
                 newLocation.locationName = location.locationName;
-                newLocation.AddressId = 1;
+                
                 newLocation.UserId = boss.UserId;
                 db.Locations.Add(newLocation);
                 //boss.Location.Add(newLocation);
