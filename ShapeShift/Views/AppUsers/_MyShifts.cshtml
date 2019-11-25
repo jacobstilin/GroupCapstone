@@ -63,5 +63,17 @@
         </tr>
     }
 </table>
-
+<script>
+     $(document).ready(function () {
+       $('#AddShiftToExchange').click(function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var $detailDiv = $('#EditShi'),
+                url = $(this).data('url');
+            $.get(url, function (data) {
+                $detailDiv.replaceWith(data);
+            });
+       });
+           });
+</script>
      

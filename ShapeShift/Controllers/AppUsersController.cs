@@ -308,7 +308,7 @@ namespace ShapeShift.Controllers
             }
             
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Employee");
         }
 
 
