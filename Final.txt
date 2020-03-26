@@ -1,0 +1,71 @@
+1.What is premature optimization?
+When you try to optimize before it actually works. 
+
+2.What is ORM?
+Object relation mapping.
+
+3.What is a factory pattern?
+Keep all the logic hidden from the client 
+
+4.
+
+5. What are the four pillars of OOP?
+Abstraction: only using what is relevant 
+Encapsulation:to keep everything contained in class
+Data abstraction:
+Inheritance :
+
+6. What is a nullable type?
+A property or variable that can be null 
+
+7.What is the difference between stack and queue?When would you use one versus another?
+ A stack is a way of storing data where you can only take the top most piece.
+    A Queue is a way of storing data where you take things out in the order they were              entered.
+
+8.What is the difference between an interface and abstract class. When would you use one vs another?
+A class can only use one abstract class.but a class can use multiple interfaces .
+ An interface is set up to interact with other parts of your program. An abstract class is used as framework for other classes.
+
+9.exsplain the difference between public private and protected?
+Public is accessible globally.
+Private is only accessible through a get and set. 
+Protected is accessible by itself and its children. 
+
+10.what is the difference between a left and right join SQL?
+A left join will discard all data on the right that does not have a mating pair on the left.
+A right join will discard all data on left that does not have a pair on the right.
+
+11.What is the difference between a key and index in SQL?
+A key is used to indetfy pieces of information it makes the headers in a data table. And index is the structure that holds the data stored inside the table. 
+
+12. Put the following runtime complexities in order.
+ (n log n), O(2n), O(n2),O(n!)
+
+13. What is SQL stored procedure.
+Its SQL equivalent of a method its stored logic that can be called in a query.
+
+14.What is a web api?Why would you use one? 
+A web api is a system you can make calls to to receive specific pieces of data from services they provide you. You would use one to get access to info you don't have. 
+
+15.what is a race condition?
+When a program attemps to run two things at once. 
+
+16.What is the difference between a thread and a process?
+
+17.What is agile?
+
+18.in java what is a callback?
+It sends out a request to see if something was completed successfully.
+
+19.in java script describe array.filter()
+Allows you to fill an array with all objects that pass a filter.
+
+20. What is css.
+Cascading style sheets a way to design frontend.
+
+21.What is the difference between a dictionary and  binary search trees.
+Dictionaries store sets of Key and data pairs so you can access certain pieces if you have a key.
+Binary search tree you store a right and left node and depening on wether its value is higher or lower it will go right or left 
+
+
+
